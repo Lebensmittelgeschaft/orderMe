@@ -50,7 +50,7 @@ router.delete('/:id', (req, res, next) => {
 });
 
 // //GET HTTP method to /bucketlist
-// router.get('/',(req,res) => {
+// router.get('/',(req,resBucketList) => {
 //     res.send("This is the GET Page");
 // });
 

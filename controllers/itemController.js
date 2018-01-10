@@ -1,9 +1,56 @@
 //Require the express package and use express.Router()
 const express = require('express');
 const router = express.Router();
-const bucketlist = require('../models/item');
+const items = require('../models/item');
 
-//GET HTTP method to /bucketlist
+//GET HTTP method to /items
+router.get('/', (req, res) =>{
+    items.getAllItems((err, lists) => {
+        if(err){
+            res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+        } else {
+            res.write(JSON.stringify({success: true, lists: lists}, null, 2));
+            res.end();
+        }
+    });
+});
+
+router.post('/', (req, res, next) => {
+    let newList = new items({
+        category:req.body.category,
+        name:req.body.name,
+        description: req.body.description,
+        sizes:req.body.sizes       
+        }
+    );
+    items.addItem(newList, (err, list) => {
+        if(err){
+            res.json({success: false, message: `Failed to create a new list. Error: ${err}`});
+        }else{
+            res.json({success:true, message: "Added successfully."});
+        }
+    });
+});
+
+
+router.delete('/:id', (req, res, next) => {
+    //access the parameter which is of the item to be deleted
+    let id = req.params.id;
+    //Call the model method deleteListById
+    bucketlist.deleteListById(id, (err, list) => {
+        if(err) {
+            res.json({success: false, message: `Failed to delete the element from the list. Error: ${err}`});
+        }
+        else if(list){
+            res.json({success: true, message: "Deleted successfully"});
+        } else{
+            res.json({success: false});
+        }
+    });
+});
+
+
+
 router.get('/',(req,res) => {
     res.send("This is the GET Page");
 });
