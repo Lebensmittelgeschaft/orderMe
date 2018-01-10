@@ -1,7 +1,7 @@
 {
-  "name": "awesome-bucketlist",
+  "name": "order-me",
   "version": "1.0.0",
-  "description": "A simple bucketlist app with MEAN stack",
+  "description": "An app for the Afsenaut with MEAN stack",
   "main": "app.js",
   "scripts": {
     "start": "node app",
@@ -17,7 +17,5 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@angular/cli": "^1.6.3"
-  }
+  "devDependencies": {}
 }
