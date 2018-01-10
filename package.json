@@ -16,5 +16,8 @@
     "tslint-config-airbnb": "^5.4.2"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@angular/cli": "^1.6.3"
+  }
 }
