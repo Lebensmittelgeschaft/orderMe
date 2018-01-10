@@ -8,7 +8,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const bucketlist = require('./controllers/bucketlist');
-const itemController = require('./controllers/itemController');
+const itemController = require('./controllers/itemController.ts');
 const morgan = require('morgan');
 
 

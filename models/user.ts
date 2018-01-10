@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
   orders:{
     type: [String],
-    required: true,
+    required: true, 
   },
   isOfficer:{ 
     type: Boolean, 
