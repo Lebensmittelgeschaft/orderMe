@@ -4,7 +4,7 @@
   "description": "An app for the Afsenaut with MEAN stack",
   "main": "app.js",
   "scripts": {
-    "start": "node app",
+    "start": "node app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
