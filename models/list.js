@@ -20,6 +20,7 @@ module.exports.getAllLists = (callback) => {
     BucketList.find(callback);
 }
 
+
 //newList.save is used to insert the document into MongoDB
 module.exports.addList = (newList, callback) => {
     newList.save(callback);
