@@ -16,21 +16,24 @@ const itemSchema = mongoose.Schema({
   },
   sizes:{
     type: String,
-    enum: ['S', 'M', 'L'],
+    enum:['S', 'M', 'L'],
     required: {function () {
-      return this.category = 'Clothing';
+      return this.category === 'Clothing';
     }},       
   },
 });
+
 
 const items = module.exports = mongoose.model('Items', itemSchema);
 
 // Items.find() returns all the lists
 module.exports.getAllItems = (callback) => {
   items.find(callback);
-  items.find(
-    { _id: '5a56377cc4ea9c0a904c5a7b' }, { _id:1 },
-    (err, docs) => { console.log(docs); });
+};
+
+// Return item by its id
+module.exports.getItemById = (callback, id) => {
+  items.find({ _id: id },callback);
 };
 
 // newList.save is used to insert the document into MongoDB
