@@ -7,6 +7,7 @@
         "sourceMap": true
     },
     "files": [
-            "*.ts"
+            "*.ts",
+            ".js"
     ]
 }

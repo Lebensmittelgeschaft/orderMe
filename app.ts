@@ -6,12 +6,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const config = require('./config/database');
+const config = require('./config/database.ts');
 const bucketlist = require('./controllers/bucketlist');
 const itemController = require('./controllers/itemController.ts');
 const morgan = require('morgan');
-
-
 
 // Connect mongoose to our database
 mongoose.connect(config.database);
@@ -26,9 +24,8 @@ const app = express();
 app.use(cors());
 
 // Middlewares for bodyparsincorsg using both json and urlencoding
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended:true }));
 app.use(bodyParser.json());
-
 
 app.use(morgan('tiny'));
 /*express.static is a built in middleware function to serve static files.
@@ -40,8 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req,res) => {
   res.send('Invalid page');
 });
-
-
 
 // Routing all HTTP requests to /bucketlist to bucketlist controller
 app.use('/bucketlist',bucketlist);
