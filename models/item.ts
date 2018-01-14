@@ -1,5 +1,5 @@
 
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose'; 
 
 const itemSchema = mongoose.Schema({
   category:{
@@ -23,8 +23,6 @@ const itemSchema = mongoose.Schema({
     }},       
   },
 });
-
-
 
 export const itemsModel = mongoose.model('Items', itemSchema);
 
