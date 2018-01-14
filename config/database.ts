@@ -1,4 +1,5 @@
-// 27017 is the default port number.  
-module.exports = {
+// 27017 is the default port number. 
+export let config =  {
   database: 'mongodb://localhost:27017/bucketlist',
 };
+

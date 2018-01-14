@@ -1,12 +1,17 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "noImplicitAny": true,
-        "removeComments": true,
+        "noImplicitAny": false,
+        "removeComments": false,
         "preserveConstEnums": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "outDir": "dist",
+        "target": "es6"
     },
-    "files": [
+    "include": [
             "*.ts",
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

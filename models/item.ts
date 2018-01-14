@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const itemSchema = mongoose.Schema({
@@ -24,26 +25,34 @@ const itemSchema = mongoose.Schema({
 });
 
 
-const items = module.exports = mongoose.model('Items', itemSchema);
+
+export const itemsModel = mongoose.model('Items', itemSchema);
 
 // Items.find() returns all the lists
-module.exports.getAllItems = (callback) => {
-  items.find(callback);
+const getAllItems = (callback) => {
+  itemsModel.find(callback);
 };
 
 // Return item by its id
-module.exports.getItemById = (callback, id) => {
-  items.find({ _id: id },callback);
+const getItemById = (callback, id) => {
+  itemsModel.find({ _id: id },callback);
 };
 
 // newList.save is used to insert the document into MongoDB
-module.exports.addItem = (newList, callback) => {
+const addItem = (newList, callback) => {
   newList.save(callback);
 };
 
-
 // Here we need to pass an id parameter to Items.remove
-module.exports.deleteItemById = (id, callback) => {
+const deleteItemById = (id, callback) => {
   const query = { _id: id };
-  items.remove(query, callback);
+  itemsModel.remove(query, callback);
 };
+
+export const itemMethods = {
+  getAllItems,
+  getItemById,
+  addItem,
+  deleteItemById,
+};
+

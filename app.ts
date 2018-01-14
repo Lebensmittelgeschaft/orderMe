@@ -1,14 +1,18 @@
 // https://www.sitepoint.com/mean-stack-angular-2-angular-cli/
 
-// We will declare all our dependencies here
-const express = require('express');
-const path = require('path');
+// We will declare all our dependencies here]
+import * as express from 'express'; 
+// const express = require('express');
+import * as path from 'path'; 
+// const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const config = require('./config/database.ts');
-const bucketlist = require('./controllers/bucketlist');
-const itemController = require('./controllers/itemController.ts');
+// const config = require('./config/database');
+import { config } from './config/database'; 
+// const bucketlist = require('./controllers/bucketlist');
+// const itemController = require('./controllers/itemController');
+import * as itemController from './controllers/itemController';
 const morgan = require('morgan');
 
 // Connect mongoose to our database
@@ -19,12 +23,12 @@ const port = 3000;
 
 // Initialize our app variable
 const app = express();
-
+// app.use('/bucketlist',bucketlist);
 // Middleware for CORS
 app.use(cors());
 
 // Middlewares for bodyparsincorsg using both json and urlencoding
-app.use(bodyParser.urlencoded({ extended:true }));
+app.use(bodyParser.urlencoded({ extenbucketlistded:true }));
 app.use(bodyParser.json());
 
 app.use(morgan('tiny'));
@@ -39,11 +43,11 @@ app.get('/', (req,res) => {
 });
 
 // Routing all HTTP requests to /bucketlist to bucketlist controller
-app.use('/bucketlist',bucketlist);
+// app.use('/bucketlist',bucketlist);
 
 
 // Routing all HTTP requests to /bucketlist to bucketlist controller
-app.use('/items',itemController);
+app.use('/items', itemController);
 
 // Listen to port 3000
 app.listen(port, () => {
