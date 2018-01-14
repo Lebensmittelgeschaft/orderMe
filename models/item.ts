@@ -1,7 +1,7 @@
 
 import * as mongoose from 'mongoose'; 
 
-const itemSchema = mongoose.Schema({
+export const itemSchema = mongoose.Schema({
   category:{
     type: String,
     required: true,

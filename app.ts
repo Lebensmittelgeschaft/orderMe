@@ -40,7 +40,7 @@ app.get('/', (req,res) => {
 });
 
 // Routing all HTTP requests to the controller
-
+// ******************************************    TODO: WHY DOES THE ORDER MATTER???     ******************************************************
 app.use(routeEnum.ITEMS, getRouter(routeEnum.ITEMS));
 app.use(routeEnum.USERS, getRouter(routeEnum.USERS));
 

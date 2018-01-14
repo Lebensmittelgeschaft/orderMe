@@ -1,55 +1,54 @@
 
 import * as express from 'express'; 
-import { itemMethods, itemsModel } from '../models/item'; 
+import { itemsModel } from '../models/item'; 
+import { usersModel } from '../models/user'; 
 import { routeEnum } from '../ENUMS'; 
+import { controller } from './controller'; 
 
 const router: express.Router = express.Router();
 
 export const getRouter  = (x: routeEnum) => {
 
   console.log('gigity ' + x);
-  switch (x){
-    case routeEnum.ITEMS:
-    
-      
-  }
-  
-  // GET HTTP method to /items
+
+  // const genericModel = (x === routeEnum.ITEMS) ? itemsModel : usersModel;
+  const genericController = controller(x);
+  // GET HTTP method
   router.get('/', (req, res) => {
-    itemMethods.getAllItems((err, lists) => {
-      if (err) {
-        res.json({ success:false, message: `Failed to load all lists. Error: ${err}` });
-      } else {
-        res.write(JSON.stringify({ success: true, returned:  lists }, null, 2));
-        res.end();
-      }
+    genericController.getAll((err, ret) => {
+      errorHandler(res, err, ret);
+      console.log('res: ' + res + 'ret: ' + ret);
     });
   });
 
-  // GET HTTP method to /items
+  // GET HTTP method
   router.get('/:id', (req, res) => {
-    itemMethods.getItemById(
+    genericController.getById(
       (err, ret) => {
-        if (err) {
-          res.json({ success:false, message: `Failed to load the item. Error: ${err}` });
-        } else {
-          res.write(JSON.stringify({ success:true, returned: ret }, null, 2));
-          res.end();
-        }
+        errorHandler(res, err, ret);
+        
       },
       req.params.id);
   });
 
   router.post('/', (req, res, next) => {
-    const newList = new itemsModel({
+    const newList = (x === routeEnum.ITEMS) ? 
+    new itemsModel({
       category:req.body.category,
       name:req.body.name,
       description: req.body.description,
       sizes:req.body.sizes,  
+    }) 
+    : 
+    new usersModel({
+      orders:req.body.orders,
+      isOfficer:req.body.isOfficer,
+      isAdmin: req.body.isAdmin,
     });
-    itemMethods.addItem(newList, (err, list) => {
+
+    genericController.add(newList, (err, list) => {
       if (err) {
-        res.json({ success: false, message: `Failed to create a new list. Error: ${err}` });
+        res.json({ success:false, message: `Failed to create a new list. Error: ${err}` });
       }else {
         res.json({ success:true, message: 'Added successfully.' });
       }
@@ -60,7 +59,7 @@ export const getRouter  = (x: routeEnum) => {
     // access the parameter which is of the item to be deleted
     const id = req.params.id;
     // Call the model method deleteListById
-    itemMethods.deleteItemById(id, (err, list) => {
+    genericController.deleteById(id, (err, list) => {
       if (err) {
         res.json({
           success: false, 
@@ -73,6 +72,15 @@ export const getRouter  = (x: routeEnum) => {
     });
   });
   return router;
+
+  function errorHandler(res, err, ret) {
+    if (err) {
+      res.json({ success:false, message: `Failed to load the item. Error: ${err}` });
+    } else {
+      res.write(JSON.stringify({ success:true, returned: ret }, null, 2));
+      res.end();
+    }
+  }
   
 }; 
 

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+export const userSchema = new mongoose.Schema({
   orders:{
     type: [String],
     required: true, 
@@ -15,22 +15,33 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const users = module.exports = mongoose.model('Users', userSchema);
 
-// //Items.find() returns all the lists
-module.exports.getAllUsers = (callback) => {
-  users.find(callback);
+export const usersModel = mongoose.model('Users', userSchema);
+
+// Users.find() returns all the lists
+const getAllUsers = (callback) => {
+  usersModel.find(callback);
 };
 
+// Return user by its id
+const getUserById = (callback, id) => {
+  usersModel.find({ _id: id },callback);
+};
 
-// //newList.save is used to insert the document into MongoDB
-// module.exports.addList = (newList, callback) => {
-//     newList.save(callback);
-// }
+// newList.save is used to insert the document into MongoDB
+const addUser = (newList, callback) => {
+  newList.save(callback);
+};
 
+// Here we need to pass an id parameter to Users.remove
+const deleteUserById = (id, callback) => {
+  const query = { _id: id };
+  usersModel.remove(query, callback);
+};
 
-// //Here we need to pass an id parameter to BUcketList.remove
-// module.exports.deleteListById = (id, callback) => {
-//     let query = {_id: id};
-//     Items.remove(query, callback);
-// }
+export const userMethods = {
+  getAllUsers,
+  getUserById,
+  addUser,
+  deleteUserById,
+};
