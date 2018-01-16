@@ -11,6 +11,8 @@ import { config } from './config/database';
 import { routeEnum } from './ENUMS'; 
 import {  getRouter } from './controllers/itemController';
 
+import {  userRouter } from './src/user/user.router';
+import {  itemRouter } from './src/item/item.router';
 
 // Connect mongoose to our database
 mongoose.connect(config.database);
@@ -41,8 +43,12 @@ app.get('/', (req,res) => {
 
 // Routing all HTTP requests to the controller
 // ******************************************    TODO: WHY DOES THE ORDER MATTER???     ******************************************************
-app.use(routeEnum.ITEMS, getRouter(routeEnum.ITEMS));
-app.use(routeEnum.USERS, getRouter(routeEnum.USERS));
+// app.use(routeEnum.ITEMS, getRouter(routeEnum.ITEMS));
+// app.use(routeEnum.USERS, getRouter(routeEnum.USERS));
+
+
+app.use('/users', userRouter);
+app.use('/items', itemRouter);
 
 // Listen to port 3000
 app.listen(port, () => {
