@@ -1,5 +1,6 @@
 
 import * as mongoose from 'mongoose'; 
+import * as testing from './item.testing';
 
 export const itemSchema = mongoose.Schema({
   category:{
@@ -37,8 +38,8 @@ const getItemById = (callback, id) => {
 };
 
 // newList.save is used to insert the document into MongoDB
-const addItem = (newList, callback) => {
-  newList.save(callback);
+const addItem = (newItem, callback) => {
+  newItem.save(callback);
 };
 
 // Here we need to pass an id parameter to Items.remove
@@ -47,10 +48,15 @@ const deleteItemById = (id, callback) => {
   itemsModel.remove(query, callback);
 };
 
+const deleteAllItems = (callback) => {
+  itemsModel.remove({}, callback);
+};
+
 export const itemMethods = {
   getAllItems,
   getItemById,
   addItem,
   deleteItemById,
+  deleteAllItems,
 };
 

@@ -7,12 +7,17 @@ import * as cors from 'cors';
 import * as mongoose from 'mongoose'; 
 import * as morgan from 'morgan'; 
 import * as path from 'path'; 
-import { config } from './config/database'; 
-import { routeEnum } from './ENUMS'; 
-import {  getRouter } from './controllers/itemController';
+// import { routeEnum } from './ENUMS'; 
+// import {  getRouter } from './controllers/itemController';
 
-import {  userRouter } from './src/user/user.router';
-import {  itemRouter } from './src/item/item.router';
+import { userRouter } from './src/user/user.router';
+import { itemRouter } from './src/item/item.router';
+// import { runTests } from './src/item/item.testing';
+
+// 27017 is the default port number. 
+export let config =  {
+  database: 'mongodb://localhost:27017/bucketlist',
+};
 
 // Connect mongoose to our database
 mongoose.connect(config.database);
@@ -42,7 +47,6 @@ app.get('/', (req,res) => {
 });
 
 // Routing all HTTP requests to the controller
-// ******************************************    TODO: WHY DOES THE ORDER MATTER???     ******************************************************
 // app.use(routeEnum.ITEMS, getRouter(routeEnum.ITEMS));
 // app.use(routeEnum.USERS, getRouter(routeEnum.USERS));
 
@@ -54,3 +58,6 @@ app.use('/items', itemRouter);
 app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
 });
+
+
+// runTests();

@@ -25,14 +25,14 @@ itemRouter.get('/:id', (req, res) => {
 });
 
 itemRouter.post('/', (req, res, next) => {
-  const newList = new itemsModel({
+  const newItem = new itemsModel({
     category:req.body.category,
     name:req.body.name,
     description: req.body.description,
     sizes:req.body.sizes,  
   }); 
 
-  itemMethods.addItem(newList, (err, list) => {
+  itemMethods.addItem(newItem, (err, list) => {
     if (err) {
       res.json({ success:false, message: `Failed to create a new list. Error: ${err}` });
     }else {
