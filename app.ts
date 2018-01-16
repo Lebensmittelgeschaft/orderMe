@@ -7,12 +7,14 @@ import * as cors from 'cors';
 import * as mongoose from 'mongoose'; 
 import * as morgan from 'morgan'; 
 import * as path from 'path'; 
-// import { routeEnum } from './ENUMS'; 
-// import {  getRouter } from './controllers/itemController';
 
 import { userRouter } from './src/user/user.router';
 import { itemRouter } from './src/item/item.router';
-// import { runTests } from './src/item/item.testing';
+import { runTests } from './src/item/item.testing';
+import { itemsModel, itemMethods } from './src/item/item.model'; 
+
+
+
 
 // 27017 is the default port number. 
 export let config =  {
@@ -46,11 +48,6 @@ app.get('/', (req,res) => {
   res.send('Invalid page');
 });
 
-// Routing all HTTP requests to the controller
-// app.use(routeEnum.ITEMS, getRouter(routeEnum.ITEMS));
-// app.use(routeEnum.USERS, getRouter(routeEnum.USERS));
-
-
 app.use('/users', userRouter);
 app.use('/items', itemRouter);
 
@@ -59,5 +56,7 @@ app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
 });
 
-
 // runTests();
+
+
+
