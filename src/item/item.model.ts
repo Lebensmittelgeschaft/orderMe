@@ -1,7 +1,7 @@
 
 import * as mongoose from 'mongoose'; 
 import * as testing from './item.testing';
-import { ItemCategory } from '../../ENUMS';
+import { ItemCategory, ItemSizes } from '../../ENUMS';
 
 export const itemSchema = mongoose.Schema({
   id:{
@@ -23,7 +23,7 @@ export const itemSchema = mongoose.Schema({
   },
   sizes:{
     type: String,
-    enum:['S', 'M', 'L'],
+    enum:[ItemSizes.SMALL, ItemSizes.MEDIUM, ItemSizes.LARGE, ItemSizes.NONE],
     required: {function () {
       return this.category === 'Clothing';
     }},       
@@ -31,37 +31,3 @@ export const itemSchema = mongoose.Schema({
 });
 
 export const itemsModel = mongoose.model('Items', itemSchema);
-
-// Items.find() returns all the lists
-const getAllItems = (callback) => {
-  itemsModel.find(callback);
-};
-
-// Return item by its id
-const getItemById = (callback, id) => {
-  itemsModel.find({ _id: id },callback);
-};
-
-// newList.save is used to insert the document into MongoDB
-const addItem = (newItem, callback) => {
-  newItem.save(callback);
-};
-
-// Here we need to pass an id parameter to Items.remove
-const deleteItemById = (id, callback) => {
-  const query = { _id: id };
-  itemsModel.remove(query, callback);
-};
-
-const deleteAllItems = (callback) => {
-  itemsModel.remove({}, callback);
-};
-
-export const itemMethods = {
-  getAllItems,
-  getItemById,
-  addItem,
-  deleteItemById,
-  deleteAllItems,
-};
-

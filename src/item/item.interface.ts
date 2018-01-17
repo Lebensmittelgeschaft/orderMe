@@ -1,11 +1,11 @@
 
 import { Document } from 'mongoose';
-import { ItemCategory } from '../../ENUMS';
+import { ItemCategory, ItemSizes } from '../../ENUMS';
 
 export interface IItem extends Document {
   id: Number;
-  category: String;
+  category: ItemCategory;
   name: String;
   description: String;
-  sizes: String;
+  sizes: ItemSizes;
 }
