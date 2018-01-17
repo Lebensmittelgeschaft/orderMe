@@ -16,7 +16,7 @@ itemMethods.deleteAllItems((err, ret) => {
 const item1 : IItem = <IItem>{
   id: 101,
   category: ItemCategory.FURNITURE,
-  name: 'Table',
+  name: 'Item1',
   description:'this is a table for a workstation',
   sizes: 'M',
 };
@@ -24,7 +24,7 @@ const item1 : IItem = <IItem>{
 const item2 : IItem = <IItem>{
   id: 102,
   category: ItemCategory.CLOTHING,
-  name: 'Shirt',
+  name: 'Item2',
   description:'this is a madey-alef shirt',
   sizes: 'S',
 };
@@ -36,17 +36,22 @@ describe('Find Item by Id', () => {
   before(async () => {
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/bucketlist', { useMongoClient: true });
-    const newItem = new itemsModel(item1); 
-    await ItemManager.addItem(newItem, (err, list) => {});
+    await ItemManager.addItem(new itemsModel(item1));
+    await ItemManager.addItem(new itemsModel(item2));
   });
   
   it('should find item by id', async () => {
-
     const result = await ItemManager.getItemByName(item1.name);
-    console.log(result);
+    // console.log(result);
+    expect(result).to.exist;
+    expect(result).to.have.property('id', item1.id);
     expect(result).to.have.property('category', item1.category);
-
+    expect(result).to.have.property('name', item1.name);
+    expect(result).to.have.property('description', item1.description);
+    expect(result).to.have.property('sizes', item1.sizes);
   });
+
+
 
   after((done) => {
     mongoose.disconnect();
@@ -54,7 +59,6 @@ describe('Find Item by Id', () => {
   });
 
 });
-
 
 mongoose.disconnect();
 

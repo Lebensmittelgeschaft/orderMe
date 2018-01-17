@@ -8,9 +8,9 @@ mongoose.Promise = global.Promise;
 
 export class ItemManager {
   
-  public static getItemById(id : String) {
+  public static getItemById(myId : String) {
     try {
-      return itemsModel.findOne({ _id: id });
+      return itemsModel.findOne({ id: myId });
     } catch (exception) {
       return Promise.reject(exception);
     }
@@ -24,7 +24,7 @@ export class ItemManager {
     }
   }
   
-  public static getAllItems(id : String) {
+  public static getAllItems() {
     try {
       return itemsModel.find({});
     } catch (exception) {
@@ -32,8 +32,8 @@ export class ItemManager {
     }
   }
 
-  public static addItem = (newItem, callback) => {
-    return newItem.save(callback);
+  public static addItem = (newItem) => {
+    return newItem.save();
   }
 
   
@@ -56,35 +56,3 @@ export class ItemManager {
   
 }
 
-// Items.find() returns all the lists
-const getAllItems = (callback) => {
-  itemsModel.find(callback);
-};
-
-// Return item by its id
-const getItemById = (callback, id) => {
-  itemsModel.find({ _id: id },callback);
-};
-
-// newList.save is used to insert the document into MongoDB
-const addItem = (newItem, callback) => {
-  newItem.save(callback);
-};
-
-// Here we need to pass an id parameter to Items.remove
-const deleteItemById = (id, callback) => {
-  const query = { _id: id };
-  itemsModel.remove(query, callback);
-};
-
-const deleteAllItems = (callback) => {
-  itemsModel.remove({}, callback);
-};
-
-export const itemMethods = {
-  getAllItems,
-  getItemById,
-  addItem,
-  deleteItemById,
-  deleteAllItems,
-};
