@@ -10,7 +10,7 @@ import * as path from 'path';
 
 import { userRouter } from './src/user/user.router';
 import { itemRouter } from './src/item/item.router';
-import { runTests } from './src/item/item.testing';
+// import * as tester from './src/item/item.testing';
 import { itemsModel, itemMethods } from './src/item/item.model'; 
 
 

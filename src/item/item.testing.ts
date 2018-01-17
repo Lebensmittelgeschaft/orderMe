@@ -7,48 +7,54 @@ import { ItemManager } from './item.manager';
 import * as mongoose from 'mongoose'; 
 import { config } from '../../app';
 
-mongoose.connect('mongodb://localhost/bucketlist', { useMongoClient: true });
-
 // Delete all items before the test begins
-// itemMethods.deleteAllItems((err, ret) => {
-//   // errorPrinter(err, ret, 1);
-// });
+itemMethods.deleteAllItems((err, ret) => {
+  // errorPrinter(err, ret, 1);
+});
 
-export function runTests() {
-  const item1 : IItem = <IItem>{
-    category: ItemCategory.FURNITURE,
-    name: 'Table',
-    description:'this is a table for a workstation',
-    sizes: 'M',
-  };
+
+const item1 : IItem = <IItem>{
+  id: 101,
+  category: ItemCategory.FURNITURE,
+  name: 'Table',
+  description:'this is a table for a workstation',
+  sizes: 'M',
+};
+
+const item2 : IItem = <IItem>{
+  id: 102,
+  category: ItemCategory.CLOTHING,
+  name: 'Shirt',
+  description:'this is a madey-alef shirt',
+  sizes: 'S',
+};
+
+
+
+describe('Find Item by Id', () => {
   
-  const item2 : IItem = <IItem>{
-    category: ItemCategory.CLOTHING,
-    name: 'Shirt',
-    description:'this is a madey-alef shirt',
-    sizes: 'S',
-  };
-  
-  // WHY DOESN'T IT WORK HERE, BUT IT DOES IN ROUTER??
-  const newItem = new itemsModel({
-    category:'Clothing',
-    name:'item3.name',
-    description: 'item1.description',
-    sizes:'M',  
-  }); 
-  
-  console.log('starting to add item!');
-  itemMethods.addItem(newItem, (err, list) => {
-    if (err) {
-      // res.json({ success:false, message: `Failed to create a new list. Error: ${err}` });
-    }else {
-      // res.json({ success:true, message: 'Added successfully.' });
-    }
+  before(async () => {
+    mongoose.Promise = global.Promise;
+    mongoose.connect('mongodb://localhost/bucketlist', { useMongoClient: true });
+    const newItem = new itemsModel(item1); 
+    await ItemManager.addItem(newItem, (err, list) => {});
   });
   
-}
+  it('should find item by id', async () => {
 
-runTests();
+    const result = await ItemManager.getItemByName(item1.name);
+    console.log(result);
+    expect(result).to.have.property('category', item1.category);
+
+  });
+
+  after((done) => {
+    mongoose.disconnect();
+    done();
+  });
+
+});
+
 
 mongoose.disconnect();
 
@@ -91,17 +97,17 @@ mongoose.disconnect();
 //     errorPrinter(err, ret, 2);
 //   });
 
-// function errorPrinter(err, ret, number) {
-//   console.log('hello');
-//   if (err) {
-//     console.log(`TESTING FAILED 
-//     success: false, 
-//     message: Error: ${err}}`);
-//   } else if (ret) {
-//     console.log(`{ TESTING${number} success: true, message: 'All good' }`);
-//   } else {
-//     console.log(`{ TESTING${number} success: false }`);
-//   }
-// }
+function errorPrinter(err, ret, number) {
+  console.log('hello');
+  if (err) {
+    console.log(`TESTING FAILED 
+    success: false, 
+    message: Error: ${err}}`);
+  } else if (ret) {
+    console.log(`{ TESTING${number} success: true, message: 'All good' }`);
+  } else {
+    console.log(`{ TESTING${number} success: false }`);
+  }
+}
 
 

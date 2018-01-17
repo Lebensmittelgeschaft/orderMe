@@ -4,10 +4,14 @@ import * as testing from './item.testing';
 import { ItemCategory } from '../../ENUMS';
 
 export const itemSchema = mongoose.Schema({
+  id:{
+    type: Number,
+    required: true,
+  },
   category:{
     type: ItemCategory,
     required: true,
-    enum:['Clothing', 'Furniture', 'Other'],
+    // enum:['Clothing', 'Furniture', 'Other'],
   },
   name:{
     type: String,
@@ -40,7 +44,6 @@ const getItemById = (callback, id) => {
 
 // newList.save is used to insert the document into MongoDB
 const addItem = (newItem, callback) => {
-  console.log('hello22');
   newItem.save(callback);
 };
 

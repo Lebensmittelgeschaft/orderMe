@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 
 export class ItemManager {
   
-  public static getItemById(id : string) {
+  public static getItemById(id : String) {
     try {
       return itemsModel.findOne({ _id: id });
     } catch (exception) {
@@ -16,7 +16,7 @@ export class ItemManager {
     }
   }
 
-  public static getItemByName (myName : string) {
+  public static getItemByName (myName : String) {
     try {
       return itemsModel.findOne({ name: myName });
     } catch (exception) {
@@ -24,17 +24,16 @@ export class ItemManager {
     }
   }
   
-  public static getAllItems(id : string) {
+  public static getAllItems(id : String) {
     try {
-      return itemsModel.findOne({});
+      return itemsModel.find({});
     } catch (exception) {
       return Promise.reject(exception);
     }
   }
 
   public static addItem = (newItem, callback) => {
-    console.log('hello22');
-    newItem.save(callback);
+    return newItem.save(callback);
   }
 
   
