@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "tsc && node dist/app.js",
-    "test": "set NODE_ENV=test && tsc && mocha dist/helper.js dist/src/item/item.testing.js"
+    "test": "set NODE_ENV=test && tsc && mocha dist/helper.js dist/**/**/*.testing.js"
   },
   "dependencies": {
     "@types/express": "^4.11.0",

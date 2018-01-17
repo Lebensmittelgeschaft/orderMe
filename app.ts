@@ -7,7 +7,7 @@ import * as cors from 'cors';
 import * as mongoose from 'mongoose'; 
 import * as morgan from 'morgan'; 
 import * as path from 'path'; 
-
+import { } from './src/user/user.testing';
 import { userRouter } from './src/user/user.router';
 import { itemRouter } from './src/item/item.router';
 // import * as tester from './src/item/item.testing';

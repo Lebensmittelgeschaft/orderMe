@@ -20,6 +20,7 @@ itemRouter.get('/:id', (req, res) => {
 
 itemRouter.post('/', (req, res, next) => {
   const newItem = new itemsModel({
+    id: req.body.id,
     category:req.body.category,
     name:req.body.name,
     description: req.body.description,

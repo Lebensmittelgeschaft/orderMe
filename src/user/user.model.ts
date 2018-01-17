@@ -14,6 +14,18 @@ export const userSchema = new mongoose.Schema({
     type: Boolean, 
     requires: true,
   },
+  id: {
+    type: Number,
+    requires: true,
+  },
+  firstName: {
+    type: String,
+    required: true, 
+  },
+  lastName:{
+    type: String,
+    required: true, 
+  },
 });
 
 
