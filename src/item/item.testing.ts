@@ -1,6 +1,5 @@
 import { itemsModel } from './item.model';
 import { expect } from 'chai';
-import * as mocha from 'mocha';
 import { IItem } from './item.interface';
 import { ItemCategory, ItemSizes } from '../../ENUMS';
 import { ItemManager } from './item.manager';

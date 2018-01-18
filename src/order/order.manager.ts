@@ -46,6 +46,14 @@ export class OrderManager{
     }
   }
 
+  public static updateOrder = (myId: Number, newOrder: Partial<IOrder>) => {
+    try {
+      return ordersModel.findOneAndUpdate({ id: myId }, newOrder, { new : true });
+    } catch (exception) {
+      return Promise.reject(exception);
+    }
+  }
+
   // Should be used only indevelopment!
   public static deleteAllOrders = () => {
     try {
