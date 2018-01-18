@@ -15,9 +15,6 @@ import { orderRouter } from './src/order/order.router';
 // import * as tester from './src/item/item.testing';
 // import { itemsModel, itemMethods } from './src/item/item.model'; 
 
-
-
-
 // 27017 is the default port number. 
 export let config =  {
   database: 'mongodb://localhost:27017/bucketlist',

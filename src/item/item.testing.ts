@@ -7,45 +7,47 @@ import { ItemManager } from './item.manager';
 import * as mongoose from 'mongoose'; 
 import { config } from '../../app';
 
-const item1 : IItem = <IItem>{
-  id: 101,
-  category: ItemCategory.FURNITURE,
-  name: 'Item1',
-  description:'this is a table for a workstation',
-  sizes: ItemSizes.NONE,
+export const testingItems = {
+  item1 : <IItem>{
+    id: 101,
+    category: ItemCategory.FURNITURE,
+    name: 'Item1',
+    description:'this is a table for a workstation',
+    sizes: ItemSizes.NONE,
+  },
+  item2 : <IItem>{
+    id: 102,
+    category: ItemCategory.CLOTHING,
+    name: 'Item2',
+    description:'this is a madey-alef shirt',
+    sizes: ItemSizes.SMALL,
+  },
+  
+  item3 : <IItem>{
+    id: 103,
+    category: ItemCategory.OTHER,
+    name: 'Item3',
+    description:'this is a locker',
+    sizes: ItemSizes.NONE,
+  },
+  
+  item4 : <IItem>{
+    id: 104,
+    category: ItemCategory.CLOTHING,
+    name: 'Item4',
+    description:'this is a madey-alef pair of pants',
+    sizes: ItemSizes.SMALL,
+  },
+  
+  item5 : <IItem>{
+    id: 105,
+    category: ItemCategory.FURNITURE,
+    name: 'Item5',
+    description:'ITEM5DESC',
+    sizes: ItemSizes.NONE,
+  },
 };
 
-const item2 : IItem = <IItem>{
-  id: 102,
-  category: ItemCategory.CLOTHING,
-  name: 'Item2',
-  description:'this is a madey-alef shirt',
-  sizes: ItemSizes.SMALL,
-};
-
-const item3 : IItem = <IItem>{
-  id: 103,
-  category: ItemCategory.OTHER,
-  name: 'Item3',
-  description:'this is a locker',
-  sizes: ItemSizes.NONE,
-};
-
-const item4 : IItem = <IItem>{
-  id: 104,
-  category: ItemCategory.CLOTHING,
-  name: 'Item4',
-  description:'this is a madey-alef pair of pants',
-  sizes: ItemSizes.SMALL,
-};
-
-const item5 : IItem = <IItem>{
-  id: 105,
-  category: ItemCategory.FURNITURE,
-  name: 'Item5',
-  description:'ITEM5DESC',
-  sizes: ItemSizes.NONE,
-};
 
 describe('Test Items', () => {
   
@@ -58,7 +60,7 @@ describe('Test Items', () => {
     mongoose.connection.once('connected', () => {
       mongoose.connection.db.dropCollection('items');
     });
-    const result = await ItemManager.getItemById(item1.id);
+    const result = await ItemManager.getItemById(testingItems.item1.id);
     expect(result).to.not.exist;
   });
   
@@ -68,53 +70,53 @@ describe('Test Items', () => {
   });
   
   it('add items to the collection', async () => {
-    await ItemManager.addItem(new itemsModel(item1));
-    await ItemManager.addItem(new itemsModel(item2));
-    await ItemManager.addItem(new itemsModel(item3));
-    await ItemManager.addItem(new itemsModel(item4));
+    await ItemManager.addItem(new itemsModel(testingItems.item1));
+    await ItemManager.addItem(new itemsModel(testingItems.item2));
+    await ItemManager.addItem(new itemsModel(testingItems.item3));
+    await ItemManager.addItem(new itemsModel(testingItems.item4));
     const itemsReturned = await ItemManager.getAllItems();
     expect(itemsReturned).to.not.be.empty;
     expect(itemsReturned).to.have.lengthOf(4);
   });
   
   it('find item by id', async () => {
-    const result = await ItemManager.getItemById(item2.id);
+    const result = await ItemManager.getItemById(testingItems.item2.id);
     // console.log(result);
     expect(result).to.exist;
-    expect(result).to.have.property('id', item2.id);
-    expect(result).to.have.property('category', item2.category);
-    expect(result).to.have.property('name', item2.name);
-    expect(result).to.have.property('description', item2.description);
-    expect(result).to.have.property('sizes', item2.sizes);
+    expect(result).to.have.property('id', testingItems.item2.id);
+    expect(result).to.have.property('category', testingItems.item2.category);
+    expect(result).to.have.property('name', testingItems.item2.name);
+    expect(result).to.have.property('description', testingItems.item2.description);
+    expect(result).to.have.property('sizes', testingItems.item2.sizes);
   });
-
+  
   it('find item by name', async () => {
-    const result = await ItemManager.getItemByName(item1.name);
+    const result = await ItemManager.getItemByName(testingItems.item1.name);
     // console.log(result);
     expect(result).to.exist;
-    expect(result).to.have.property('id', item1.id);
-    expect(result).to.have.property('category', item1.category);
-    expect(result).to.have.property('name', item1.name);
-    expect(result).to.have.property('description', item1.description);
-    expect(result).to.have.property('sizes', item1.sizes);
+    expect(result).to.have.property('id', testingItems.item1.id);
+    expect(result).to.have.property('category', testingItems.item1.category);
+    expect(result).to.have.property('name', testingItems.item1.name);
+    expect(result).to.have.property('description', testingItems.item1.description);
+    expect(result).to.have.property('sizes', testingItems.item1.sizes);
   });
-
+  
   it('find items by category', async () => {
-    const itemsReturned = await ItemManager.getAllItemsByCategory(item2.category);
+    const itemsReturned = await ItemManager.getAllItemsByCategory(testingItems.item2.category);
     expect(itemsReturned).to.have.lengthOf(2);
     for (const item in itemsReturned) {
-      expect(item).to.not.have.property('category', item2.category);
+      expect(item).to.not.have.property('category', testingItems.item2.category);
     }
   });
-
-
+  
+  
   it('delete a single item', async () => {
     const itemsReturnedBefore = await ItemManager.getAllItems();
-    const result = await ItemManager.deleteItemById(item1.id);
+    const result = await ItemManager.deleteItemById(testingItems.item1.id);
     const itemsReturnedAfter = await ItemManager.getAllItems();
     expect(itemsReturnedAfter).to.have.lengthOf(itemsReturnedBefore.length - 1);
     for (const item in itemsReturnedAfter) {
-      expect(item).to.not.have.property('id', item1.id);
+      expect(item).to.not.have.property('id', testingItems.item1.id);
     }
   });
   
@@ -123,7 +125,7 @@ describe('Test Items', () => {
     const itemsReturned = await ItemManager.getAllItems();
     expect(itemsReturned).to.have.lengthOf(0);
   });
-
+  
   after((done) => {
     mongoose.disconnect();
     done();

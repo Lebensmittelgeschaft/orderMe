@@ -48,8 +48,6 @@ export class ItemManager {
       return Promise.reject(exception);
     }
   }
-
-
   
   public static deleteItemById = (myId: Number) => {
     try {

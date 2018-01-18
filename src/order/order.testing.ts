@@ -7,6 +7,10 @@ import * as mongoose from 'mongoose';
 import { config } from '../../app';
 import { OrderStatus } from '../../ENUMS';
 
+import { ItemManager } from '../item/item.manager';
+import { itemsModel } from '../item/item.model';
+import { testingItems } from '../item/item.testing';
+
 
 const currDate = new Date();
 const timeInMilliseconds = currDate.getTime();
@@ -24,7 +28,7 @@ const order1 : IOrder = <IOrder>{
 const order2 : IOrder = <IOrder>{
   id: 302,
   date: timeInMilliseconds + 3600 * 1000,
-  itemsIds: <[Number]>[301, 302],
+  itemsIds: <[Number]>[101, 103],
   status: OrderStatus.NOT_SENT,
 };
 
@@ -42,9 +46,7 @@ const order4 : IOrder = <IOrder>{
   status: OrderStatus.NOT_SENT,
 };
 
-
 describe('Test Orders', () => {
-  
   before(async () => {
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/bucketlist', { useMongoClient: true });
@@ -63,7 +65,6 @@ describe('Test Orders', () => {
     expect(result).to.be.empty;
   });
   
-  // NOT WORKING
   it('add orders to the collection', async () => {
     await OrderManager.addOrder(new ordersModel(order1));
     await OrderManager.addOrder(new ordersModel(order2));
@@ -74,51 +75,42 @@ describe('Test Orders', () => {
     expect(ordersReturned).to.have.lengthOf(4);
   });
   
-  //   it('find order by id', async () => {
-  //     const result = await OrderManager.getOrderById(order2.id);
-  //     // console.log(result);
-  //     expect(result).to.exist;
-  //     expect(result).to.have.property('id', order2.id);
-  //     expect(result).to.have.property('firstName', order2.firstName);
-  //     expect(result).to.have.property('lastName', order2.lastName);
-  //     expect(result).to.have.property('isAdmin', order2.isAdmin);
-  //     expect(result).to.have.property('isOfficer', order2.isOfficer);
-  //     expect(diffArrays(result.orders, order2.orders)).to.be.true;
-  //   });
   
-  //   it('find order by name', async () => {
-  //     const result = await OrderManager.getOrderByName(order1.firstName, order1.lastName);
-  //     expect(result).to.have.lengthOf(2);
+  // INTEGRATION!!
+  // it('add items for the orders to the collection', async () => {
+  //   await OrderManager.addOrder(new itemsModel(testingItems.item1));
+  //   await OrderManager.addOrder(new itemsModel(testingItems.item2));
+  //   await OrderManager.addOrder(new itemsModel(testingItems.item3));
+  //   const ordersReturned = await OrderManager.getAllOrders();
+  //   expect(ordersReturned).to.not.be.empty;
+  //   expect(ordersReturned).to.have.lengthOf(4);
+  // });
   
-  //     const res1 = result[0];
-  //     expect(res1).to.exist;
-  //     expect(res1).to.have.property('id', order1.id);
-  //     expect(res1).to.have.property('firstName', order1.firstName);
-  //     expect(res1).to.have.property('lastName', order1.lastName);
+  it('find order by id', async () => {
+    const result = await OrderManager.getOrderById(order2.id);
+    // console.log(result);
+    expect(result).to.exist;
+    expect(result).to.have.property('id', order2.id);
+    expect(result).to.have.property('date', order2.date);
+    expect(result).to.have.property('status', order2.status);
+    expect(diffArrays(result.itemsIds, order2.itemsIds)).to.be.true;
+  });
   
-  //     const res2 = result[1];
-  //     expect(res2).to.exist;
-  //     expect(res2).to.have.property('id', order5.id);
-  //     expect(res2).to.have.property('firstName', order5.firstName);
-  //     expect(res2).to.have.property('lastName', order5.lastName);
-  //   });
+  it('delete a single order', async () => {
+    const ordersReturnedBefore = await OrderManager.getAllOrders();
+    const result = await OrderManager.deleteOrderById(order1.id);
+    const ordersReturnedAfter = await OrderManager.getAllOrders();
+    expect(ordersReturnedAfter).to.have.lengthOf(ordersReturnedBefore.length - 1);
+    for (const order in ordersReturnedAfter) {
+      expect(order).to.not.have.property('id', order1.id);
+    }
+  });
   
-  //   it('delete a single order', async () => {
-  //     const ordersReturnedBefore = await OrderManager.getAllOrders();
-  //     const result = await OrderManager.deleteOrderById(order1.id);
-  //     const ordersReturnedAfter = await OrderManager.getAllOrders();
-  //     expect(ordersReturnedAfter).to.have.lengthOf(ordersReturnedBefore.length - 1);
-  //     for (const order in ordersReturnedAfter) {
-  //       expect(order).to.not.have.property('id', order1.id);
-  //     }
-  //   });
-  
-  //   it('delete all orders', async () => {
-  //     const result = await OrderManager.deleteAllOrders();
-  //     const ordersReturned = await OrderManager.getAllOrders();
-  //     expect(ordersReturned).to.have.lengthOf(0);
-  //   });
-  
+  it('delete all orders', async () => {
+    const result = await OrderManager.deleteAllOrders();
+    const ordersReturned = await OrderManager.getAllOrders();
+    expect(ordersReturned).to.have.lengthOf(0);
+  });
   
   after((done) => {
     mongoose.disconnect();
