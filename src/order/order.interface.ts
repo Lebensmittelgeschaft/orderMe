@@ -3,8 +3,7 @@ import { OrderStatus } from '../../ENUMS';
 
 export interface IOrder extends Document {
   id: Number;
-  date: Date;
+  date: Number;
   itemsIds: [Number];
   status: OrderStatus;
-  isAdmin: Boolean;
 }

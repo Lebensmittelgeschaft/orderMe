@@ -8,8 +8,10 @@ import * as mongoose from 'mongoose';
 import * as morgan from 'morgan'; 
 import * as path from 'path'; 
 import { } from './src/user/user.testing';
+import { } from './src/order/order.testing';
 import { userRouter } from './src/user/user.router';
 import { itemRouter } from './src/item/item.router';
+import { orderRouter } from './src/order/order.router';
 // import * as tester from './src/item/item.testing';
 // import { itemsModel, itemMethods } from './src/item/item.model'; 
 
@@ -50,6 +52,7 @@ app.get('/', (req,res) => {
 
 app.use('/users', userRouter);
 app.use('/items', itemRouter);
+app.use('/orders', orderRouter);
 
 // Listen to port 3000
 app.listen(port, () => {
