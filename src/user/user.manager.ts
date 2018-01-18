@@ -16,7 +16,7 @@ export class UserManager{
   
   public static getUserByName (myFirstName : String, myLastName : String) {
     try {
-      return usersModel.findOne({ firstName: myFirstName, lastName: myLastName });
+      return usersModel.find({ firstName: myFirstName, lastName: myLastName });
     } catch (exception) {
       return Promise.reject(exception);
     }

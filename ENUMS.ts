@@ -15,3 +15,10 @@ export enum ItemCategory{
     FURNITURE = 'Furniture',
     OTHER = 'OTHER',
 }
+
+export enum OrderStatus{
+    NOT_SENT = 'NOT_SENT',
+    SENT = 'SENT',
+    WAITING = 'WAITING',
+    DONE = 'OTHER',
+}

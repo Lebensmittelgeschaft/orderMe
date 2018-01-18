@@ -54,7 +54,6 @@ describe('Test Items', () => {
     mongoose.connect('mongodb://localhost/bucketlist', { useMongoClient: true });
   });
   
-  
   it('drop items collection', async () => {
     mongoose.connection.once('connected', () => {
       mongoose.connection.db.dropCollection('items');
@@ -62,7 +61,6 @@ describe('Test Items', () => {
     const result = await ItemManager.getItemById(item1.id);
     expect(result).to.not.exist;
   });
-  
   
   it('check if item db is empty', async () => {
     const result = await ItemManager.getAllItems();
@@ -111,10 +109,11 @@ describe('Test Items', () => {
 
 
   it('delete a single item', async () => {
+    const itemsReturnedBefore = await ItemManager.getAllItems();
     const result = await ItemManager.deleteItemById(item1.id);
-    const itemsReturned = await ItemManager.getAllItems();
-    expect(itemsReturned).to.have.lengthOf(3);
-    for (const item in itemsReturned) {
+    const itemsReturnedAfter = await ItemManager.getAllItems();
+    expect(itemsReturnedAfter).to.have.lengthOf(itemsReturnedBefore.length - 1);
+    for (const item in itemsReturnedAfter) {
       expect(item).to.not.have.property('id', item1.id);
     }
   });
