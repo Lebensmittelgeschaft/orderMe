@@ -100,7 +100,6 @@ describe('Test Orders', () => {
       testingOrders.order2.id, 
       { status: newStatus },
     );
-    
     const result2 = await OrderManager.getOrderById(testingOrders.order2.id);
     expect(result).to.not.have.property('status', before.status);
     expect(result2).to.have.property('status', newStatus);

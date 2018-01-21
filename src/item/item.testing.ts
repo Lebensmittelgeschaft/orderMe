@@ -107,6 +107,21 @@ describe('Test Items', () => {
       expect(item).to.not.have.property('category', testingItems.item2.category);
     }
   });
+
+  it('update an item by id', async () => {
+    const before = await ItemManager.getItemById(testingItems.item2.id);
+
+    const newCategury = (before.category === ItemCategory.CLOTHING) ?
+    ItemCategory.FURNITURE : ItemCategory.CLOTHING;
+
+    const result = await ItemManager.updateItem( 
+      testingItems.item2.id, 
+      { category: newCategury },
+    );
+    const result2 = await ItemManager.getItemById(testingItems.item2.id);
+    expect(result).to.not.have.property('category', before.category);
+    expect(result2).to.have.property('category', newCategury);
+  });
   
   
   it('delete a single item', async () => {

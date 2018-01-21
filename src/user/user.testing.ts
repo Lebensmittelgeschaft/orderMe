@@ -6,50 +6,59 @@ import { UserManager } from './user.manager';
 import * as mongoose from 'mongoose'; 
 import { config } from '../../app';
 
-const user1 : IUser = <IUser>{
-  id: 201,
-  firstName: 'Shahar',
-  lastName: 'Yair',
-  orders: <[String]>['301', '302'],
-  isOfficer: true,
-  isAdmin: true,
+export const testingUsers = {
+  
+  user1 : <IUser>{
+    id: 201,
+    firstName: 'Shahar',
+    lastName: 'Yair',
+    orders: <[String]>['301', '302'],
+    isOfficer: true,
+    isAdmin: true,
+  },
+  
+  user2 : <IUser>{
+    id: 202,
+    firstName: 'Moti',
+    lastName: 'Yair',
+    orders: <[String]>[''],
+    isOfficer: true,
+    isAdmin: false,
+  },
+  
+  user3 : <IUser>{
+    id: 203,
+    firstName: 'Aviva',
+    lastName: 'Yair',
+    orders: <[String]>[''],
+    isOfficer: false,
+    isAdmin: true,
+  },
+  
+  user4 : <IUser>{
+    id: 204,
+    firstName: 'Dror',
+    lastName: 'Yair',
+    orders: <[String]>[''],
+    isOfficer: false,
+    isAdmin: false,
+  },
+  
+  user5 :  <IUser>{
+    id: 205,
+    firstName: 'Shahar',
+    lastName: 'Yair',
+    orders: <[String]>[''],
+    isOfficer: false,
+    isAdmin: false,
+  },
 };
 
-const user2 : IUser = <IUser>{
-  id: 202,
-  firstName: 'Moti',
-  lastName: 'Yair',
-  orders: <[String]>[''],
-  isOfficer: true,
-  isAdmin: false,
-};
-
-const user3 : IUser = <IUser>{
-  id: 203,
-  firstName: 'Aviva',
-  lastName: 'Yair',
-  orders: <[String]>[''],
-  isOfficer: false,
-  isAdmin: true,
-};
-
-const user4 : IUser = <IUser>{
-  id: 204,
-  firstName: 'Dror',
-  lastName: 'Yair',
-  orders: <[String]>[''],
-  isOfficer: false,
-  isAdmin: false,
-};
-
-const user5 : IUser = <IUser>{
-  id: 205,
-  firstName: 'Shahar',
-  lastName: 'Yair',
-  orders: <[String]>[''],
-  isOfficer: false,
-  isAdmin: false,
-};
+const user1 = testingUsers.user1;
+const user2 = testingUsers.user2;
+const user3 = testingUsers.user3;
+const user4 = testingUsers.user4;
+const user5 = testingUsers.user5;
 
 describe('Test Users', () => {
   
@@ -62,7 +71,7 @@ describe('Test Users', () => {
     mongoose.connection.once('connected', () => {
       mongoose.connection.db.dropCollection('users');
     });
-    const result = await UserManager.getUserById(user1.id);
+    const result = await UserManager.getUserById(testingUsers.user1.id);
     expect(result).to.not.exist;
   });
   
@@ -82,7 +91,7 @@ describe('Test Users', () => {
     expect(usersReturned).to.not.be.empty;
     expect(usersReturned).to.have.lengthOf(5);
   });
-
+  
   it('find user by id', async () => {
     const result = await UserManager.getUserById(user2.id);
     // console.log(result);
@@ -94,24 +103,41 @@ describe('Test Users', () => {
     expect(result).to.have.property('isOfficer', user2.isOfficer);
     expect(diffArrays(result.orders, user2.orders)).to.be.true;
   });
-
+  
   it('find user by name', async () => {
     const result = await UserManager.getUserByName(user1.firstName, user1.lastName);
     expect(result).to.have.lengthOf(2);
-
+    
     const res1 = result[0];
     expect(res1).to.exist;
     expect(res1).to.have.property('id', user1.id);
     expect(res1).to.have.property('firstName', user1.firstName);
     expect(res1).to.have.property('lastName', user1.lastName);
-
+    
     const res2 = result[1];
     expect(res2).to.exist;
     expect(res2).to.have.property('id', user5.id);
     expect(res2).to.have.property('firstName', user5.firstName);
     expect(res2).to.have.property('lastName', user5.lastName);
   });
-
+  
+  it('update an user by id', async () => {
+    const before = await UserManager.getUserById(testingUsers.user2.id);
+    
+    const newFisrtName = 'Mordechai';
+    const newLastName = 'Meiri';
+    
+    const result = await UserManager.updateUser( 
+      testingUsers.user2.id, 
+      { firstName: newFisrtName, lastName : newLastName },
+    );
+    const result2 = await UserManager.getUserById(testingUsers.user2.id);
+    expect(result).to.not.have.property('firstName', before.firstName);
+    expect(result2).to.have.property('firstName', newFisrtName);
+    expect(result).to.not.have.property('lastName', before.newLastName);
+    expect(result2).to.have.property('lastName', newLastName);
+  });
+  
   it('delete a single user', async () => {
     const usersReturnedBefore = await UserManager.getAllUsers();
     const result = await UserManager.deleteUserById(user1.id);
@@ -127,7 +153,7 @@ describe('Test Users', () => {
     const usersReturned = await UserManager.getAllUsers();
     expect(usersReturned).to.have.lengthOf(0);
   });
-
+  
   
   after((done) => {
     mongoose.disconnect();

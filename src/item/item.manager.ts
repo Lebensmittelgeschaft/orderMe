@@ -48,6 +48,15 @@ export class ItemManager {
       return Promise.reject(exception);
     }
   }
+
+  public static updateItem = (myId: Number, newItem: Partial<IItem>) => {
+    try {
+      // {new:true} mesans to return the new value instead of the old one.
+      return itemsModel.findOneAndUpdate({ id: myId }, newItem, { new : true });
+    } catch (exception) {
+      return Promise.reject(exception);
+    }
+  }
   
   public static deleteItemById = (myId: Number) => {
     try {

@@ -37,6 +37,15 @@ export class UserManager{
       return Promise.reject(exception);
     }
   }
+
+  public static updateUser = (myId: Number, newUser: Partial<IUser>) => {
+    try {
+      // {new:true} mesans to return the new value instead of the old one.
+      return usersModel.findOneAndUpdate({ id: myId }, newUser, { new : true });
+    } catch (exception) {
+      return Promise.reject(exception);
+    }
+  }
   
   public static deleteUserById = (myId: Number) => {
     try {
