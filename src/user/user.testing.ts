@@ -4,7 +4,7 @@ import * as mocha from 'mocha';
 import { IUser } from './user.interface';
 import { UserManager } from './user.manager';
 import * as mongoose from 'mongoose'; 
-import { config } from '../../app';
+import { config } from '../app';
 
 export const testingUsers = {
   

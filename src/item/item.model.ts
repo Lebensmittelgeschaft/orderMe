@@ -1,12 +1,12 @@
 
 import * as mongoose from 'mongoose'; 
 import * as testing from './item.testing';
-import { ItemCategory, ItemSizes } from '../../ENUMS';
+import { ItemCategory, ItemSizes } from '../ENUMS';
 
 export const itemSchema = mongoose.Schema({
-  id:{
+  _id:{
     type: Number,
-    required: true,
+    required: false,
   },
   category:{
     type: ItemCategory,

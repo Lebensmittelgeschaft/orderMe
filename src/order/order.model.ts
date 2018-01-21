@@ -1,8 +1,9 @@
 import * as mongoose from 'mongoose'; 
-import { OrderStatus } from '../../ENUMS';
+import { OrderStatus } from '../ENUMS';
+import * as uniqueValidator from 'mongoose-unique-validator';
 
 export const orderSchema = mongoose.Schema({
-  id: {
+  _id: {
     type: Number,
     required: true,
   },
@@ -11,8 +12,8 @@ export const orderSchema = mongoose.Schema({
     required: true,
   },
   itemsIds: {
-    type: [Number],
-    required: true,
+    type: [Number],    
+    default: [],
   },
   status: {
     type: OrderStatus,
@@ -21,3 +22,4 @@ export const orderSchema = mongoose.Schema({
 });
 
 export const ordersModel = mongoose.model('orders', orderSchema);
+orderSchema.plugin(uniqueValidator);

@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import { IOrder } from './order.interface';
 import { OrderManager } from './order.manager';
 import * as mongoose from 'mongoose'; 
-import { config } from '../../app';
-import { OrderStatus } from '../../ENUMS';
+import { config } from '../app';
+import { OrderStatus } from '../ENUMS';
 
 import { ItemManager } from '../item/item.manager';
 import { itemsModel } from '../item/item.model';
@@ -19,29 +19,29 @@ console.log('timeInMilliseconds: ' + timeInMilliseconds);
 
 export const testingOrders = {
   order1 : <IOrder>{
-    id: 301,
+    _id: 301,
     date: timeInMilliseconds,
-    itemsIds: <[Number]>[101, 102],
+    itemsIds: <[Number]>[],  // 101, 102
     status: OrderStatus.NOT_SENT,
   },
   order2 : <IOrder>{
-    id: 302,
+    _id: 302,
     date: timeInMilliseconds + 3600 * 1000,
-    itemsIds: <[Number]>[101, 103],
+    itemsIds: <[Number]>[-1], // 101, 103
     status: OrderStatus.NOT_SENT,
   },
   
   order3 : <IOrder>{
-    id: 303,
+    _id: 303,
     date: timeInMilliseconds + 3600 * 2000,
-    itemsIds: <[Number]>[301, 302],
+    itemsIds: <[Number]>[-1],  // 301, 302
     status: OrderStatus.NOT_SENT,
   },
   
   order4 : <IOrder>{
-    id: 304,
+    _id: 304,
     date: timeInMilliseconds + 3600 * 3000,
-    itemsIds: <[Number]>[301, 302],
+    itemsIds: <[Number]>[-1], //  301, 302
     status: OrderStatus.NOT_SENT,
   },
 };
@@ -58,7 +58,7 @@ describe('Test Orders', () => {
     mongoose.connection.once('connected', () => {
       mongoose.connection.db.dropCollection('orders');
     });
-    const result = await OrderManager.getOrderById(testingOrders.order1.id);
+    const result = await OrderManager.getOrderById(testingOrders.order1._id);
     expect(result).to.not.exist;
   });
   
@@ -68,6 +68,7 @@ describe('Test Orders', () => {
   });
   
   it('add orders to the collection', async () => {
+    // console.log('!!!!!!' + new ordersModel(testingOrders.order1));
     await OrderManager.addOrder(new ordersModel(testingOrders.order1));
     await OrderManager.addOrder(new ordersModel(testingOrders.order2));
     await OrderManager.addOrder(new ordersModel(testingOrders.order3));
@@ -80,10 +81,10 @@ describe('Test Orders', () => {
   
   
   it('find order by id', async () => {
-    const result = await OrderManager.getOrderById(testingOrders.order2.id);
+    const result = await OrderManager.getOrderById(testingOrders.order2._id);
     // console.log(result);
     expect(result).to.exist;
-    expect(result).to.have.property('id', testingOrders.order2.id);
+    expect(result).to.have.property('_id', testingOrders.order2._id);
     expect(result).to.have.property('date', testingOrders.order2.date);
     expect(result).to.have.property('status', testingOrders.order2.status);
     expect(diffArrays(result.itemsIds, testingOrders.order2.itemsIds)).to.be.true;
@@ -91,27 +92,27 @@ describe('Test Orders', () => {
   
   
   it('update an order by id', async () => {
-    const before = await OrderManager.getOrderById(testingOrders.order2.id);
+    const before = await OrderManager.getOrderById(testingOrders.order2._id);
 
     const newStatus = (before.status === OrderStatus.NOT_SENT) ?
     OrderStatus.SENT : OrderStatus.NOT_SENT;
 
     const result = await OrderManager.updateOrder( 
-      testingOrders.order2.id, 
+      testingOrders.order2._id, 
       { status: newStatus },
     );
-    const result2 = await OrderManager.getOrderById(testingOrders.order2.id);
+    const result2 = await OrderManager.getOrderById(testingOrders.order2._id);
     expect(result).to.not.have.property('status', before.status);
     expect(result2).to.have.property('status', newStatus);
   });
   
   it('delete a single order', async () => {
     const ordersReturnedBefore = await OrderManager.getAllOrders();
-    const result = await OrderManager.deleteOrderById(testingOrders.order1.id);
+    const result = await OrderManager.deleteOrderById(testingOrders.order1._id);
     const ordersReturnedAfter = await OrderManager.getAllOrders();
     expect(ordersReturnedAfter).to.have.lengthOf(ordersReturnedBefore.length - 1);
     for (const order in ordersReturnedAfter) {
-      expect(order).to.not.have.property('id', testingOrders.order1.id);
+      expect(order).to.not.have.property('id', testingOrders.order1._id);
     }
   });
   

@@ -53,15 +53,24 @@ describe('Test Integration: Orders + Items', () => {
   });
   
   // findByIdAndUpdate
-
+  it('add item to an order', async () => {
+    const item = await ItemManager.getItemById(testingItems.item1._id);
+    const order = await OrderManager.getOrderById(testingOrders.order1._id);
+    order.itemsIds.push(item.id);
+    await OrderManager.updateOrder(order.id, { itemsIds :  order.itemsIds });
+    const newOrder = await OrderManager.getOrderById(order.id);
+    expect(newOrder.itemsIds.includes(item._id)).to.be.true;
+  });
+  
+  
   it('get an item from its id in order', async () => {
     // should return item1
-    const order = await OrderManager.getOrderById(testingOrders.order1.id);
-    console.log(order);
+    const order = await OrderManager.getOrderById(testingOrders.order1._id);
+    // console.log(order);
     const itemFromOrder = await ItemManager.getItemById(await order.itemsIds[0]);
-    console.log(itemFromOrder);
-    expect(itemFromOrder).to.have.property('id', testingItems.item1.id);
-    
+    // console.log(itemFromOrder);
+    expect(itemFromOrder).to.have.property('_id', testingItems.item1._id);
+  
   });
   
   

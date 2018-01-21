@@ -7,7 +7,7 @@ export class OrderManager{
   
   public static getOrderById(myId : Number) {
     try {
-      return ordersModel.findOne({ id: myId });
+      return ordersModel.findOne({ _id: myId });
     } catch (exception) {
       // console.log('EXCEPTION: ' + exception);
       return Promise.reject(exception);
@@ -40,7 +40,7 @@ export class OrderManager{
   
   public static deleteOrderById = (myId: Number) => {
     try {
-      return ordersModel.remove({ id : myId });
+      return ordersModel.remove({ _id : myId });
     } catch (exception) {
       return Promise.reject(exception);
     }
@@ -48,7 +48,7 @@ export class OrderManager{
 
   public static updateOrder = (myId: Number, newOrder: Partial<IOrder>) => {
     try {
-      return ordersModel.findOneAndUpdate({ id: myId }, newOrder, { new : true });
+      return ordersModel.findOneAndUpdate({ _id: myId }, newOrder, { new : true });
     } catch (exception) {
       return Promise.reject(exception);
     }

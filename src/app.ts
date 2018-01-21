@@ -7,12 +7,12 @@ import * as cors from 'cors';
 import * as mongoose from 'mongoose'; 
 import * as morgan from 'morgan'; 
 import * as path from 'path'; 
-import { } from './src/user/user.testing';
-import { } from './src/order/order.testing';
-import { } from './src/integration_testing/item-order.testing';
-import { userRouter } from './src/user/user.router';
-import { itemRouter } from './src/item/item.router';
-import { orderRouter } from './src/order/order.router';
+import { } from './user/user.testing';
+import { } from './order/order.testing';
+import { } from './integration_testing/item-order.testing';
+import { userRouter } from './user/user.router';
+import { itemRouter } from './item/item.router';
+import { orderRouter } from './order/order.router';
 // import * as tester from './src/item/item.testing';
 // import { itemsModel, itemMethods } from './src/item/item.model'; 
 

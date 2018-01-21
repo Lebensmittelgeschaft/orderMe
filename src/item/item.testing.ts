@@ -1,21 +1,21 @@
 import { itemsModel } from './item.model';
 import { expect } from 'chai';
 import { IItem } from './item.interface';
-import { ItemCategory, ItemSizes } from '../../ENUMS';
+import { ItemCategory, ItemSizes } from '../ENUMS';
 import { ItemManager } from './item.manager';
 import * as mongoose from 'mongoose'; 
-import { config } from '../../app';
+import { config } from '../app';
 
 export const testingItems = {
   item1 : <IItem>{
-    id: 101,
+    _id: 101,
     category: ItemCategory.FURNITURE,
     name: 'Item1',
     description:'this is a table for a workstation',
     sizes: ItemSizes.NONE,
   },
   item2 : <IItem>{
-    id: 102,
+    _id: 102,
     category: ItemCategory.CLOTHING,
     name: 'Item2',
     description:'this is a madey-alef shirt',
@@ -23,7 +23,7 @@ export const testingItems = {
   },
   
   item3 : <IItem>{
-    id: 103,
+    _id: 103,
     category: ItemCategory.OTHER,
     name: 'Item3',
     description:'this is a locker',
@@ -31,7 +31,7 @@ export const testingItems = {
   },
   
   item4 : <IItem>{
-    id: 104,
+    _id: 104,
     category: ItemCategory.CLOTHING,
     name: 'Item4',
     description:'this is a madey-alef pair of pants',
@@ -39,7 +39,7 @@ export const testingItems = {
   },
   
   item5 : <IItem>{
-    id: 105,
+    _id: 105,
     category: ItemCategory.FURNITURE,
     name: 'Item5',
     description:'ITEM5DESC',
@@ -59,7 +59,7 @@ describe('Test Items', () => {
     mongoose.connection.once('connected', () => {
       mongoose.connection.db.dropCollection('items');
     });
-    const result = await ItemManager.getItemById(testingItems.item1.id);
+    const result = await ItemManager.getItemById(testingItems.item1._id);
     expect(result).to.not.exist;
   });
   
@@ -79,10 +79,10 @@ describe('Test Items', () => {
   });
   
   it('find item by id', async () => {
-    const result = await ItemManager.getItemById(testingItems.item2.id);
+    const result = await ItemManager.getItemById(testingItems.item2._id);
     // console.log(result);
     expect(result).to.exist;
-    expect(result).to.have.property('id', testingItems.item2.id);
+    expect(result).to.have.property('_id', testingItems.item2._id);
     expect(result).to.have.property('category', testingItems.item2.category);
     expect(result).to.have.property('name', testingItems.item2.name);
     expect(result).to.have.property('description', testingItems.item2.description);
@@ -93,7 +93,7 @@ describe('Test Items', () => {
     const result = await ItemManager.getItemByName(testingItems.item1.name);
     // console.log(result);
     expect(result).to.exist;
-    expect(result).to.have.property('id', testingItems.item1.id);
+    expect(result).to.have.property('_id', testingItems.item1._id);
     expect(result).to.have.property('category', testingItems.item1.category);
     expect(result).to.have.property('name', testingItems.item1.name);
     expect(result).to.have.property('description', testingItems.item1.description);
@@ -109,16 +109,16 @@ describe('Test Items', () => {
   });
 
   it('update an item by id', async () => {
-    const before = await ItemManager.getItemById(testingItems.item2.id);
+    const before = await ItemManager.getItemById(testingItems.item2._id);
 
     const newCategury = (before.category === ItemCategory.CLOTHING) ?
     ItemCategory.FURNITURE : ItemCategory.CLOTHING;
 
     const result = await ItemManager.updateItem( 
-      testingItems.item2.id, 
+      testingItems.item2._id, 
       { category: newCategury },
     );
-    const result2 = await ItemManager.getItemById(testingItems.item2.id);
+    const result2 = await ItemManager.getItemById(testingItems.item2._id);
     expect(result).to.not.have.property('category', before.category);
     expect(result2).to.have.property('category', newCategury);
   });
@@ -126,11 +126,11 @@ describe('Test Items', () => {
   
   it('delete a single item', async () => {
     const itemsReturnedBefore = await ItemManager.getAllItems();
-    const result = await ItemManager.deleteItemById(testingItems.item1.id);
+    const result = await ItemManager.deleteItemById(testingItems.item1._id);
     const itemsReturnedAfter = await ItemManager.getAllItems();
     expect(itemsReturnedAfter).to.have.lengthOf(itemsReturnedBefore.length - 1);
     for (const item in itemsReturnedAfter) {
-      expect(item).to.not.have.property('id', testingItems.item1.id);
+      expect(item).to.not.have.property('_id', testingItems.item1._id);
     }
   });
   

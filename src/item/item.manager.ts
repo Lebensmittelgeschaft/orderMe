@@ -2,7 +2,7 @@
 import * as mongoose from 'mongoose'; 
 import { itemSchema, itemsModel } from './item.model'; 
 import { IItem } from './item.interface';
-import { ItemCategory } from '../../ENUMS';
+import { ItemCategory } from '../ENUMS';
 
 
 mongoose.Promise = global.Promise;
@@ -11,7 +11,7 @@ export class ItemManager {
   
   public static getItemById(myId : Number) {
     try {
-      return itemsModel.findOne({ id: myId });
+      return itemsModel.findOne({ _id: myId });
     } catch (exception) {
       return Promise.reject(exception);
     }
@@ -52,7 +52,7 @@ export class ItemManager {
   public static updateItem = (myId: Number, newItem: Partial<IItem>) => {
     try {
       // {new:true} mesans to return the new value instead of the old one.
-      return itemsModel.findOneAndUpdate({ id: myId }, newItem, { new : true });
+      return itemsModel.findOneAndUpdate({ _id: myId }, newItem, { new : true });
     } catch (exception) {
       return Promise.reject(exception);
     }
@@ -60,7 +60,7 @@ export class ItemManager {
   
   public static deleteItemById = (myId: Number) => {
     try {
-      return itemsModel.remove({ id : myId });
+      return itemsModel.remove({ _id : myId });
     } catch (exception) {
       return Promise.reject(exception);
     }

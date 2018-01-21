@@ -1,9 +1,9 @@
 import { Document } from 'mongoose';
-import { OrderStatus } from '../../ENUMS';
+import { OrderStatus } from '../ENUMS';
 
 export interface IOrder extends Document {
-  id: Number;
-  date: Number;
-  itemsIds: [Number];
+  _id: number;
+  date: number;
+  itemsIds: [number];
   status: OrderStatus;
 }
