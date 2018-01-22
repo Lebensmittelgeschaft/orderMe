@@ -1,23 +1,55 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<!-- added -->
-<div innerHTML="{{myjsonData}}"></div>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+</head>
+<body>
+    
+    <ul class="main-ul">
+        <li><img src="../assets/marki.png" width="60%" height="50%" id="profile-photo"></li>
+        <div id="personal-info">
+            <b>Mark, 33<br>zuki84@walla.co.il</b>
+        </div>
+        <li><a class="active" href="main.html"><img class="icons" src="../assets/icons/main.png">Main</a></li>
+        <li><a class="main-list" href="list.html"><img class="icons" src="../assets/icons/list.png">List</a></li>
+        <li><a class="main-list" href="card.html"><img class="icons" src="../assets/icons/card.png">Card</a></li>
+        <li><a class="main-list" href="button.html"><img class="icons" src="../assets/icons/button.png">Button</a></li>
+        <li><a class="main-list" href="toggle-button.html"><img class="icons" src="../assets/icons/toggle-button.png">Toggle Button</a></li>
+        <li><a class="main-list" href="spinner.html"><img class="icons" src="../assets/icons/spinner.png">Spinner</a></li>
+        <li><a class="main-list" href="tabs.html"><img class="icons" src="../assets/icons/tabs.png">Tabs</a></li>
+    </ul>
+    
+    <div style="margin-left:18%; padding: 10px; height: 100%">
+        <div style="margin-bottom:190px;">
+            <h2>This is the main page of the website</h2>
+            <b>Throughout this site you will see clickable links, buttons and other items. You are more than welcome to see where they will lead you! :)<br>
+                Be warned, that some of them are links to the civilian web and therefore might not work under the classified networks.<br>
+                © All rights reserved to Shahar Yair, and Sapir IDF unit</b>
+                <h3>There should be some content and therefore...</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id libero ac dolor commodo sollicitudin. Ut hendrerit ligula vitae molestie bibendum. Fusce pretium dolor ut ex vulputate malesuada. Etiam sagittis eros lectus, ac faucibus nulla tempus sit amet. Vivamus sodales, diam a tempus viverra, arcu sem vulputate metus, at vestibulum nisl elit tristique lacus. Cras ligula tortor, rutrum vel nisl fringilla, consectetur dictum purus. Phasellus bibendum dapibus neque in aliquam. Cras faucibus quis velit malesuada ornare. Pellentesque eget erat ut turpis rhoncus dignissim.
+                </p>
+                <p>
+                    Pellentesque consectetur tellus nisl, eget pellentesque orci pretium a. Aenean in pellentesque turpis, a vestibulum nulla. Cras rhoncus dolor eu elit hendrerit, sit amet eleifend augue accumsan. Mauris bibendum pharetra ante, eget placerat erat dictum ac. Cras non est ac mi eleifend aliquam. Cras sed leo lobortis, volutpat velit et, mollis ex. Ut consectetur gravida suscipit.
+                </p>
+                <p>
+                    Phasellus venenatis, est at euismod blandit, ipsum ex aliquet odio, vel vehicula mi metus molestie nulla. Suspendisse molestie, purus convallis condimentum consectetur, sem ante dapibus tortor, fermentum sodales sapien augue sit amet arcu. Morbi sit amet luctus dui, eu condimentum felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec malesuada metus. In sed tempus sapien. Vivamus eget metus dictum, malesuada urna sed, scelerisque lacus. Duis ac tortor vitae diam cursus porta non at nulla. In lacinia turpis quis maximus accumsan. Nunc id metus at erat aliquet vestibulum nec nec est. Sed scelerisque posuere volutpat. Morbi ullamcorper leo a ornare mollis. Cras eget mauris dictum, eleifend purus nec, iaculis lectus.
+                </p>
+                <p>
+                    Vestibulum vel faucibus orci. Ut ullamcorper elit ut libero elementum volutpat. Nam a felis placerat, ullamcorper sem ac, feugiat metus. Curabitur nec nibh vel lectus ornare dapibus. Nulla facilisi. Morbi sed velit accumsan, ullamcorper lorem vitae, tincidunt lorem. Praesent finibus finibus libero. Donec vitae tempor ipsum. Ut orci est, viverra ac dignissim in, lobortis at velit.
+                </p>
+                <p>
+                    Maecenas interdum augue convallis consequat pretium. Maecenas sed massa id nisi condimentum mollis. Donec hendrerit tempor tellus sed imperdiet. Nullam efficitur arcu ac ultricies pellentesque. Aenean congue arcu eget fermentum tempus. Nulla sed faucibus sem. Donec sodales erat id massa finibus interdum. Curabitur leo sem, varius vel sollicitudin eget, accumsan non massa. Vestibulum orci risus, elementum non sem vitae, rutrum sagittis justo. Fusce sed risus accumsan, consectetur nisi ac, maximus erat. Donec non vehicula tellus. Pellentesque aliquet sapien tellus. Mauris mollis gravida diam vitae pulvinar. In velit est, porta in molestie fringilla, congue sed nulla.
+                </p>
+                
+                <p>For more information about how we came up with this crap, <a href="https://www.lipsum.com/" >click here</a>!</p>
+                <!-- added -->
+                <div innerHTML="{{myjsonData}}"></div>
+            </div>
+        </div>
+        
+    </body>
+    </html>
+    
+    
+    

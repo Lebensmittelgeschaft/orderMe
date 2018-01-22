@@ -15,15 +15,19 @@ export class AppComponent {
   myjsonData: any = null;
 
   constructor(private _http: Http) {
-    this.getMyBlog();
+    this.getMyData();
   }
 
-  private getMyBlog() {
+  private getAll() {
+
+  }
+
+  private getMyData() {
     return this._http.get('http://localhost:3000/items/')
     .map((res: Response) => res.json())
     .subscribe(data => {
       this.data = data;
-      this.myjsonData = JSON.stringify(data);
+      this.myjsonData = JSON.stringify(data.returned);
       console.log(this.data);
       console.log(this.myjsonData);
     });
