@@ -21,32 +21,28 @@ export const testingOrders = {
   order1 : <IOrder>{
     _id: 301,
     date: timeInMilliseconds,
-    itemsIds: <[Number]>[],  // 101, 102
+    itemsIds: <[Number]>[],  
     status: OrderStatus.NOT_SENT,
   },
   order2 : <IOrder>{
     _id: 302,
     date: timeInMilliseconds + 3600 * 1000,
-    itemsIds: <[Number]>[-1], // 101, 103
+    itemsIds: <[Number]>[], 
     status: OrderStatus.NOT_SENT,
   },
-  
   order3 : <IOrder>{
     _id: 303,
     date: timeInMilliseconds + 3600 * 2000,
-    itemsIds: <[Number]>[-1],  // 301, 302
+    itemsIds: <[Number]>[],  
     status: OrderStatus.NOT_SENT,
   },
-  
   order4 : <IOrder>{
     _id: 304,
     date: timeInMilliseconds + 3600 * 3000,
-    itemsIds: <[Number]>[-1], //  301, 302
+    itemsIds: <[Number]>[], 
     status: OrderStatus.NOT_SENT,
   },
 };
-
-
 
 describe('Test Orders', () => {
   before(async () => {
@@ -78,8 +74,6 @@ describe('Test Orders', () => {
     expect(ordersReturned).to.have.lengthOf(4);
   });
   
-  
-  
   it('find order by id', async () => {
     const result = await OrderManager.getOrderById(testingOrders.order2._id);
     // console.log(result);
@@ -89,7 +83,6 @@ describe('Test Orders', () => {
     expect(result).to.have.property('status', testingOrders.order2.status);
     expect(diffArrays(result.itemsIds, testingOrders.order2.itemsIds)).to.be.true;
   });
-  
   
   it('update an order by id', async () => {
     const before = await OrderManager.getOrderById(testingOrders.order2._id);
@@ -142,7 +135,3 @@ function diffArrays(array1, array2) {
   }
   return false;
 }
-
-
-
-

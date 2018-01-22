@@ -13,8 +13,7 @@ import { } from './integration_testing/item-order.testing';
 import { userRouter } from './user/user.router';
 import { itemRouter } from './item/item.router';
 import { orderRouter } from './order/order.router';
-// import * as tester from './src/item/item.testing';
-// import { itemsModel, itemMethods } from './src/item/item.model'; 
+
 
 // 27017 is the default port number. 
 export let config =  {
