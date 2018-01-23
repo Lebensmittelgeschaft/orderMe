@@ -11,8 +11,7 @@ import { } from './user/user.testing';
 import { } from './order/order.testing';
 import { } from './integration_testing/item-order.testing';
 import { initRouting } from './helper/routing';
-
-
+import { itemGenerator } from './helper/objectsGenerator';
 
 // 27017 is the default port number. 
 export let config = {
@@ -25,8 +24,8 @@ mongoose.connect(config.database);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-db.once('open', function() {
-  console.log("CONNECTED!");
+db.once('open', () => {
+  console.log('CONNECTED!');
   // we're connected!
 });
 
@@ -45,23 +44,17 @@ app.use(bodyParser.json());
 
 app.use(morgan('tiny'));
 
-/*express.static is a built in middleware function to serve static files.
+/*express.static is a built i"n middleware function to serve static files.
 We are telling express server public folder is the place to look for the static files
 */
 app.use(express.static(path.join(__dirname, 'public')));
 
 initRouting(app);
 
-
 // Listen to port 3000
 app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
 });
-
-
-
-
-
 
 
 
