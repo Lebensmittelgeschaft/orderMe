@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ItemsPageComponent } from './components/items-page/items-page.component';
 import { NewOrderPageComponent } from './components/new-order-page/new-order-page.component';
-
+import { MyItemsService } from './components/items-page/items-service';
 
 export const appRoutes: Routes = [
   { path: 'items', component: ItemsPageComponent },
@@ -31,7 +31,9 @@ export const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [
+    MyItemsService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

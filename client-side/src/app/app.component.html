@@ -5,6 +5,31 @@
 </head>
 
 <body style="height: 1fr">
+    <h1>Angular Router</h1>
+    <nav>
+      <a routerLink="/neworder" routerLinkActive="active">New Order</a>
+      <a routerLink="/items" routerLinkActive="active">Items</a>
+    </nav>
+    <router-outlet></router-outlet>
+    <div>
+        <!-- <app-footer></app-footer> -->
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- <div style="margin-left:2%; padding: 10px; height: 100%">
         <h2>This is the main page of the website</h2>
         <mat-tab-group>
@@ -19,11 +44,3 @@
             </mat-tab>
         </mat-tab-group>
     </div> -->
-    <router-outlet></router-outlet>
-    <div>
-        <!-- <app-footer></app-footer> -->
-    </div>
-</body>
-</html>
-
-

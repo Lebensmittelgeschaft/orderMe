@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'Shahar';
   //  added this part
   data: any = null;
-  myjsonData: any = null;
+  myjsonData: string = null;
 
   constructor(private _http: Http) {
     this.getMyData();
@@ -28,7 +28,7 @@ export class AppComponent {
       this.data = data;
       this.myjsonData = JSON.stringify(data.returned);
       console.log(this.data);
-      console.log(this.myjsonData);
+      console.log('jdata:' + this.myjsonData);
     });
   }
 
