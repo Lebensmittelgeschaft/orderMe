@@ -9,15 +9,12 @@ import 'rxjs/add/operator/map';
 })
 export class AppComponent {
   title = 'Shahar';
-
   //  added this part
   data: any = null;
   myjsonData: any = null;
-
   constructor(private _http: Http) {
     this.getMyData();
   }
-
   private getAll() {
 
   }

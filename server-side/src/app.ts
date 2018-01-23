@@ -10,18 +10,25 @@ import * as path from 'path';
 import { } from './user/user.testing';
 import { } from './order/order.testing';
 import { } from './integration_testing/item-order.testing';
-import { userRouter } from './user/user.router';
-import { itemRouter } from './item/item.router';
-import { orderRouter } from './order/order.router';
+import { initRouting } from './helper/routing';
+
 
 
 // 27017 is the default port number. 
-export let config =  {
-  database: 'mongodb://localhost:27017/bucketlist',
+export let config = {
+  database: 'mongodb://localhost:27017/devDB',
 };
 
 // Connect mongoose to our database
 mongoose.connect(config.database);
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
+db.once('open', function() {
+  console.log("CONNECTED!");
+  // we're connected!
+});
 
 // Declaring Port
 const port = 3000;
@@ -43,18 +50,16 @@ We are telling express server public folder is the place to look for the static 
 */
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req,res) => {
-  res.send('Invalid page');
-});
+initRouting(app);
 
-app.use('/users', userRouter);
-app.use('/items', itemRouter);
-app.use('/orders', orderRouter);
 
 // Listen to port 3000
 app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
 });
+
+
+
 
 
 

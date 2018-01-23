@@ -1,6 +1,7 @@
 export enum routeEnum{
     ITEMS = '/items',
     USERS = '/users',
+    ORDERS = '/orders',
 }
 
 export enum ItemSizes{

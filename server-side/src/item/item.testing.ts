@@ -52,7 +52,7 @@ describe('Test Items', () => {
   
   before(async () => {
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/bucketlist', { useMongoClient: true });
+    mongoose.connect('mongodb://localhost/testingDB', { useMongoClient: true });
   });
   
   it('drop items collection', async () => {
