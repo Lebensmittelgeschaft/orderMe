@@ -12,6 +12,7 @@ import { } from './order/order.testing';
 import { } from './integration_testing/item-order.testing';
 import { initRouting } from './helper/routing';
 import { itemGenerator } from './helper/objectsGenerator';
+import { ItemCategory, ItemSizes } from './ENUMS';
 
 // 27017 is the default port number. 
 export let config = {
@@ -56,5 +57,7 @@ app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
 });
 
-
+// itemGenerator(400, 'Table', ItemCategory.FURNITURE, 'a table', ItemSizes.MEDIUM);
+// itemGenerator(401, 'Chair', ItemCategory.FURNITURE, 'a chair', ItemSizes.LARGE);
+// itemGenerator(402, 'Gold Pen', ItemCategory.OTHER, 'a fancy pen', ItemSizes.NONE);
 

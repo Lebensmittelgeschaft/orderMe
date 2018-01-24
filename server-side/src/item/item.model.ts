@@ -6,7 +6,7 @@ import { ItemCategory, ItemSizes } from '../ENUMS';
 export const itemSchema = mongoose.Schema({
   _id:{
     type: Number,
-    required: false,
+    required: true,
   },
   category:{
     type: ItemCategory,

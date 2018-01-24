@@ -18,15 +18,20 @@ itemRouter.get('/:id', (req, res) => {
   ItemManager.getItemById(req.params.id);
 });
 
-itemRouter.post('/', (req, res, next) => {
+itemRouter.post('/', async (req, res, next) => {
   const newItem = new itemsModel({
-    id: req.body.id,
+    _id: req.body.id,
     category:req.body.category,
     name:req.body.name,
     description: req.body.description,
     sizes:req.body.sizes,  
   }); 
-  ItemManager.addItem(newItem);
+  const item = await ItemManager.addItem(newItem);
+  if (item) {
+    res.sendStatus(200);
+  }else {
+    res.sendStatus(500);
+  }
 });
 
 itemRouter.delete('/:id', (req, res, next) => {

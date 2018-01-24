@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { itemGenerator } from '../../../server-side/src/helper/objectsGenerator';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,22 +16,7 @@ export class AppComponent {
   myjsonData: string = null;
 
   constructor(private _http: Http) {
-    this.getMyData();
-  }
 
-  private getAll() {
-
-  }
-
-  private getMyData() {
-    return this._http.get('http://localhost:3000/items/')
-    .map((res: Response) => res.json())
-    .subscribe(data => {
-      this.data = data;
-      this.myjsonData = JSON.stringify(data.returned);
-      console.log(this.data);
-      console.log('jdata:' + this.myjsonData);
-    });
   }
 
 }

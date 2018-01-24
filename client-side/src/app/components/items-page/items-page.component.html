@@ -1,9 +1,78 @@
-
-<p>
-  items-page works!
-</p>
-<b>  {{myjsonData}} </b>
-
-
+<!DOCTYPE html>
+<html >
+<head>
+  <style type="text/css">
+    * {margin: 0; padding: 0;}
+    #container {height: 100%; width:100%; font-size: 0;}
+    #left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top;}
+  </style>
+</head>
+<body>
+  <p>
+    items-page works!
+  </p>
+  <b>  {{myjsonData}} </b>
+  
+  <h2>This is the card page</h2>
+  <p>..</p>
+  <div id="container">
+    <div id="left">Left Side Menu</div>
+    <div id="middle">Random Content</div>
+    <div id="right">Right Side Menu</div>
+  </div>
+  <div style="width:100%">
+    <div class="cards-holder" style="font-family: sans-serif; height: 100%;">
+      
+      <div id="left" class="card" style="vertical-align: top; margin-right:5px;" *ngFor = "let item of myData">
+        <img src="../../assets/icons/card.png" alt="Image">
+        <div class="container">
+          <h4><b>This is a {{item.name}}</b></h4> 
+          <p>category: {{item.category}}</p> 
+          <p>{{item.description}}</p> 
+          <button class="card-botton" onclick="">Add</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <p> ..</p>
+  
+  <table style="width:100%; margin-bottom:20px;">
+    <tr>
+      <th>ID</th>
+      <th>Item Name</th> 
+      <th>Category</th>
+    </tr>
+    <tr *ngFor = "let item of myData">
+      <td>{{item._id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.category}}</td>
+    </tr>
+  </table>
+  
+  <p>Create a new item:</p>
+  <form action="/action_page.php">
+    <p>Item Name: 
+      <select name="cars">
+        <option *ngFor = "let item of myData" value="{{item.name}}">{{item.name}}</option>
+      </select>
+    </p>
+    <p>Item Category: 
+      <select name="cars">
+        <option *ngFor = "let item of myData" value="{{item.name}}">{{item.name}}</option>
+      </select>
+    </p>
+    <p>Item Id: 
+      <select name="cars">
+        <option *ngFor = "let item of myData" value="{{item.name}}">{{item.name}}</option>
+      </select>
+    </p>
+    <br><br>
+    <input type="submit">
+  </form>
+  
+  
+</body>
+</html>
 
 <!-- <div innerHTML="{{myjsonData}}"></div> -->

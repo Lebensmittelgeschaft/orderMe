@@ -12,8 +12,8 @@ export enum ItemSizes{
 }
 
 export enum ItemCategory{
-    CLOTHING = 'Clothing',
-    FURNITURE = 'Furniture',
+    CLOTHING = 'CLOTHING',
+    FURNITURE = 'FURNITURE',
     OTHER = 'OTHER',
 }
 

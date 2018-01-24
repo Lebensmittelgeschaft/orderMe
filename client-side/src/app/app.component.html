@@ -1,22 +1,41 @@
 <!DOCTYPE html>
-<html background >
+<html>
 <head>
     <base src='/'>
 </head>
 
 <body style="height: 1fr">
-    <h1>Angular Router</h1>
-    <nav>
-      <a routerLink="/neworder" routerLinkActive="active">New Order</a>
-      <a routerLink="/items" routerLinkActive="active">Items</a>
-    </nav>
-    <router-outlet></router-outlet>
-    <div>
-        <!-- <app-footer></app-footer> -->
+    <ul class="main-ul">
+        <li><a href="https://en.wikipedia.org/wiki/Mark_Zuckerberg" class="pic"><img src="../assets/marki.png" width="60%" height="50%" id="profile-photo"></a></li>
+        <!-- <li><a class="active" href="main.html"><img class="icons" src="../assets/icons/main.png">My Orders</a></li> -->
+        <li><a class="main-list" routerLink="/items" routerLinkActive="active"><img class="icons" src="../assets/icons/card.png">All Items</a></li>
+        <li><a class="main-list" routerLink="/neworder" routerLinkActive="active"><img class="icons" src="../assets/icons/card.png">New Order</a></li>
+        <li><a class="main-list" href="card.html"><img class="icons" src="../assets/icons/card.png">My Profile</a></li>
+        <li><a class="main-list" href="card.html"><img class="icons" src="../assets/icons/card.png">About</a></li>
+    </ul>   
+    
+    
+    <div style="margin-left:18%; margin-bottom:50px; padding:1px 16px;">
+        <router-outlet margin-right="20%"></router-outlet>
     </div>
+    
+    <!-- <frameset cols="*,*,*,*"> 
+        <frame src="./components/items-page/items-pase.component.html"> 
+        <frame src="./components/items-page/items-pase.component.html"> 
+        <frame src="./components/items-page/items-pase.component.html"> 
+        <frame src="./components/items-page/items-pase.component.html"> 
+    </frameset>  -->
+    
+    <!-- <div class="footer">
+        <app-footer></app-footer>
+    </div> -->
 </body>
 </html>
 
+<!-- <nav>
+    <a routerLink="/neworder" routerLinkActive="active">New Order</a>
+    <a routerLink="/items" routerLinkActive="active">Items</a>
+</nav> -->
 
 
 
@@ -29,18 +48,17 @@
 
 
 
-
-    <!-- <div style="margin-left:2%; padding: 10px; height: 100%">
-        <h2>This is the main page of the website</h2>
-        <mat-tab-group>
-            <mat-tab label="One">
-                <h1>Some tab content</h1>
-                <p>...</p>
-            </mat-tab>
-            <mat-tab label="Two">
-                <h1>Some more tab content</h1>
-                <p>...</p>
-                <div innerHTML="{{myjsonData}}"></div>
-            </mat-tab>
-        </mat-tab-group>
-    </div> -->
+<!-- <div style="margin-left:2%; padding: 10px; height: 100%">
+    <h2>This is the main page of the website</h2>
+    <mat-tab-group>
+        <mat-tab label="One">
+            <h1>Some tab content</h1>
+            <p>...</p>
+        </mat-tab>
+        <mat-tab label="Two">
+            <h1>Some more tab content</h1>
+            <p>...</p>
+            <div innerHTML="{{myjsonData}}"></div>
+        </mat-tab>
+    </mat-tab-group>
+</div> -->

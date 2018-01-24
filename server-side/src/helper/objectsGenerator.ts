@@ -4,13 +4,19 @@ import { IItem } from '../item/item.interface';
 import { itemsModel } from '../item/item.model';
 import { ItemManager } from '../item/item.manager';
 
-export function itemGenerator(id : Number) {
+export function itemGenerator(
+  myId : Number,
+  myName: string,
+  myCategory: enums.ItemCategory,
+  myDescription: string,
+  mySizes: enums.ItemSizes) {
+    
   const item = {
-    _id: id,
-    category: enums.ItemCategory.FURNITURE,
-    name: 'Item1',
-    description:'this is a table for a workstation',
-    sizes: enums.ItemSizes.NONE,
+    _id: myId,
+    category: myCategory,
+    name: myName,
+    description: myDescription,
+    sizes: mySizes,
   };
   console.log('adding item');
   ItemManager.addItem(new itemsModel(item));
