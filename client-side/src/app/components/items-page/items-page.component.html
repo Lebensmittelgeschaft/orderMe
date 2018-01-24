@@ -53,20 +53,26 @@
   <p>Create a new item:</p>
   <form action="/action_page.php">
     <p>Item Name: 
-      <select name="cars">
+      <select name="Name">
         <option *ngFor = "let item of myData" value="{{item.name}}">{{item.name}}</option>
       </select>
     </p>
     <p>Item Category: 
-      <select name="cars">
-        <option *ngFor = "let item of myData" value="{{item.name}}">{{item.name}}</option>
+      <select name="Category">
+        <option *ngFor = "let item of myData" value="{{item.category}}">{{item.category}}</option>
       </select>
     </p>
-    <p>Item Id: 
-      <select name="cars">
-        <option *ngFor = "let item of myData" value="{{item.name}}">{{item.name}}</option>
+    <p>Item Description: 
+      <select name="Description">
+        <option *ngFor = "let item of myData" value="{{item.description}}">{{item.description}}</option>
       </select>
     </p>
+    <p>Item Sizes: 
+      <select name="Sizes">
+        <option *ngFor = "let item of myData" value="{{item.sizes}}">{{item.sizes}}</option>
+      </select>
+    </p>
+    
     <br><br>
     <input type="submit">
   </form>

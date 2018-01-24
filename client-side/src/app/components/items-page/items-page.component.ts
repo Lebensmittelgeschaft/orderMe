@@ -10,25 +10,36 @@ import { MyItemsService } from './items-service';
 
 export class ItemsPageComponent implements OnInit {
 
-  myjsonData: string;
-  myData: [any] = [{}];
-  serve: any;
-  constructor(serve: MyItemsService) {
-    this.serve = serve;
-    serve.getAllItems().
-            subscribe(data => {
-            this.myData = data.returned;
-            console.log('data[0]: ' + this.myData);
-            this.myjsonData = JSON.stringify(data.returned);
-            console.log('jdata:' + this.myjsonData);
-        });
-   }
+myjsonData: string;
+myData: [any] = [{}];
+serve: any;
 
-  ngOnInit() {
+constructor(serve: MyItemsService) {
+  this.serve = serve;
+  serve.getAllItems().
+  subscribe(data => {
+    this.myData = data.returned;
+    console.log('data[0]: ' + this.myData);
+    this.myjsonData = JSON.stringify(data.returned);
+    console.log('jdata:' + this.myjsonData);
+  });
+}
+
+ngOnInit() {
+}
+
+generateItemId() {
+  let maxId = 0;
+  for (const item of this.myData) {
+    maxId = (item._id > maxId) ? item._id + 1 : maxId;
   }
+  console.log('max Id: ' + maxId);
+  return maxId;
+}
 
-  generateItem() {
-
-  }
+generateItem(partialItem) {
+  partialItem._id = this.generateItemId();
+  return partialItem;
+}
 
 }

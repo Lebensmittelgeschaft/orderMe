@@ -34,10 +34,17 @@ itemRouter.post('/', async (req, res, next) => {
   }
 });
 
-itemRouter.delete('/:id', (req, res, next) => {
+itemRouter.delete('/:id', async (req, res, next) => {
   // access the parameter which is of the item to be deleted
   const id = req.params.id;
-  ItemManager.deleteItemById(id);
+  console.log('Starting deletion of item ' + id);
+  
+  const response = await ItemManager.deleteItemById(id);
+  if (response) {
+    res.sendStatus(200);
+  }else {
+    res.sendStatus(500);
+  }
 });
 
 function errorHandler(res, err, ret) {

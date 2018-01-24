@@ -4,7 +4,7 @@ h1 {
     font-size: 250%;
   }
   html{
-    background-color: rgb(159, 255, 188);
+    background-color: rgb(218, 248, 222);
   }
 
   /* body {
@@ -16,7 +16,7 @@ h1 {
     margin: 0;
     padding: 0;
     width: 15%;
-    background-color: #109703;
+    background-color: #2aaf1d;
     position: fixed;
     height: 100%;
     overflow: auto;
