@@ -43,7 +43,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(bodyParser.json());
 
-app.use(morgan('tiny'));
+app.use(morgan('tiny'));// 'combined'
 
 /*express.static is a built i"n middleware function to serve static files.
 We are telling express server public folder is the place to look for the static files

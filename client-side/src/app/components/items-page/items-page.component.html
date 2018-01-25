@@ -51,32 +51,34 @@
   </table>
   
   <p>Create a new item:</p>
-  <form action="/action_page.php">
+
+<form id = "submit-item-form">
     <p>Item Name: 
-      <select name="Name">
+      <select name="Name" id="Name">
         <option *ngFor = "let item of myData" value="{{item.name}}">{{item.name}}</option>
       </select>
     </p>
     <p>Item Category: 
-      <select name="Category">
+      <select name="Category" id="Category">
         <option *ngFor = "let item of myData" value="{{item.category}}">{{item.category}}</option>
       </select>
     </p>
     <p>Item Description: 
-      <select name="Description">
+      <select name="Description" id="Description">
         <option *ngFor = "let item of myData" value="{{item.description}}">{{item.description}}</option>
       </select>
     </p>
     <p>Item Sizes: 
-      <select name="Sizes">
+      <select name="Sizes" id="Sizes">
         <option *ngFor = "let item of myData" value="{{item.sizes}}">{{item.sizes}}</option>
       </select>
     </p>
-    
+
     <br><br>
-    <input type="submit">
+    <!-- <input type="submit" id="submitBtn" onclick="generateItem({Name,Sizes,Description,Category})"> -->
+    <!-- ItemsPageComponent.generateItem({Name,Sizes,Description,Category}) -->
+    <button class="submit-button" type ="button" (click)="generateItem()">New Item</button>
   </form>
-  
   
 </body>
 </html>

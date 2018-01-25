@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
@@ -14,6 +14,7 @@ export class MyItemsService {
     address = 'http://localhost:3000/items/';
 
     constructor(public http: Http) {
+        this.http = http;
         console.log('Hello MyItemsService Provider');
     }
 
@@ -23,13 +24,16 @@ export class MyItemsService {
     }
 
     public postNewItem (partialItem) {
-        const value = '_id=' + partialItem._id + '&name=' + partialItem.name + '&category=' +
+        const value = 'name=' + partialItem.name + '&id=' + partialItem._id + '&category=' +
         partialItem.category + '&sizes=' + partialItem.sizes + '&description=' + partialItem.description;
-        console.log('in postNewItem, value = ' + value);
-        const myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
-        return this.http.post('address', value, { headers: myHeaders })
-        .map(res => res.json()).catch(this.handleError);
+        console.log('in postNewItem, value = ' + value + ' to address:' + this.address);
+        const myHeaders = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+        // myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        const x =  this.http.post(this.address, value, { headers: myHeaders })
+        .map(res => res).catch(this.handleError).subscribe(); // map (res => res.json());
+        console.log(x);
+        return x;
     }
 
 
